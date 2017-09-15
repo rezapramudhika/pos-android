@@ -1,6 +1,7 @@
 package com.ezpz.pos.adapter;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.PostDeleteCashIn;
 import com.ezpz.pos.fragment.CashInFragment;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.CashIn;
@@ -23,9 +25,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 
 /**
  * Created by RezaPramudhika on 9/10/2017.
@@ -36,6 +35,7 @@ public class CashInAdapter extends RecyclerView.Adapter<CashInAdapter.MyHolder> 
     private int resource;
     private Activity thisActivity;
     private CashInFragment fragment;
+    private ProgressDialog mProgressDialog;
 
     public CashInAdapter(Activity thisActivity, int resource, List<CashIn> cashInList, CashInFragment fragment) {
         this.thisActivity = thisActivity;
@@ -125,7 +125,7 @@ public class CashInAdapter extends RecyclerView.Adapter<CashInAdapter.MyHolder> 
     }
 
     public void httpRequest_postDeleteCashIn(int id, int type, final String companyCode){
-        DeleteCashIn client =  StaticFunction.retrofit().create(DeleteCashIn.class);
+        PostDeleteCashIn client =  StaticFunction.retrofit().create(PostDeleteCashIn.class);
         Call<Respon> call = client.setVar(id, type);
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -140,7 +140,7 @@ public class CashInAdapter extends RecyclerView.Adapter<CashInAdapter.MyHolder> 
                     }
                 }else{
                     Toast.makeText(thisActivity.getApplicationContext(),
-                            "Server offline",
+                            thisActivity.getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -152,16 +152,5 @@ public class CashInAdapter extends RecyclerView.Adapter<CashInAdapter.MyHolder> 
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-
-
-    public interface DeleteCashIn {
-        @FormUrlEncoded
-        @POST("api/v1/delete-cash")
-        Call<Respon> setVar(
-                @Field("id") int totalCash,
-                @Field("type") int type
-        );
     }
 }

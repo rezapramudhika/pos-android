@@ -11,7 +11,7 @@ import retrofit2.http.POST;
  * Created by RezaPramudhika on 9/14/2017.
  */
 
-public interface PostNewCompany {
+public interface PostCreateCompany {
     @FormUrlEncoded
     @POST("api/v1/add-new-business")
     Call<Respon> setVar(

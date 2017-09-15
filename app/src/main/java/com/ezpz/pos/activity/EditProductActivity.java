@@ -21,6 +21,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.GetCategoryList;
+import com.ezpz.pos.api.GetProductDetail;
+import com.ezpz.pos.api.GetProductPicture;
+import com.ezpz.pos.api.PostDeleteProduct;
+import com.ezpz.pos.api.PostUpdateProductDiscount;
+import com.ezpz.pos.api.PostUpdateProductInformation;
+import com.ezpz.pos.api.PostUpdateProductStock;
 import com.ezpz.pos.other.FileUtils;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Category;
@@ -38,22 +45,17 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Query;
 
 public class EditProductActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     private List<Category> categoryList;
-    private int productId;
     private ImageView imageProfile;
     private int PICK_IMAGE_REQUEST = 1;
     private String url_profile = "";
-    String categoryName;
+    private String categoryName;
 
 
     @Override
@@ -62,8 +64,6 @@ public class EditProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_product);
         initVar();
         setLayout();
-//        url_profile = new Memcache(getApplicationContext()).getUser().getImageProfile();
-        //Toast.makeText(getApplicationContext(),""+ getProductId(), Toast.LENGTH_SHORT).show();
     }
 
     public void initVar(){
@@ -77,19 +77,21 @@ public class EditProductActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        final Bundle bundle = getIntent().getExtras();
-        productId = bundle.getInt("productId");
-        setProductId(productId);
+
     }
 
-
-    public int getProductId() {
+    private int productId(){
+        final Bundle bundle = getIntent().getExtras();
+        int productId = bundle.getInt("productId");
         return productId;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public String companyCode(){
+        final Bundle bundle = getIntent().getExtras();
+        final String companyCode = bundle.getString("companyCode");
+        return companyCode;
     }
+
 
     public String getUrl_profile() {
         return url_profile;
@@ -99,9 +101,15 @@ public class EditProductActivity extends AppCompatActivity {
         this.url_profile = url_profile;
     }
 
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
     public void setLayout(){
-        final Bundle bundle = getIntent().getExtras();
-        productId = bundle.getInt("productId");
         final LinearLayout layoutEditInformation = (LinearLayout) findViewById(R.id.layoutEditInformation);
         final LinearLayout layoutEditStock = (LinearLayout) findViewById(R.id.layoutEditStock);
         final LinearLayout layoutEditDiscount= (LinearLayout) findViewById(R.id.layoutEditDiscount);
@@ -120,19 +128,19 @@ public class EditProductActivity extends AppCompatActivity {
                     layoutEditStock.setVisibility(View.GONE);
                     layoutEditDiscount.setVisibility(View.GONE);
                     layoutDeleteProduct.setVisibility(View.GONE);
-                    httpRequest_getProductInformation(productId, i);
+                    httpRequest_getProductInformation(productId(), i);
                 }else if(i==1){
                     layoutEditInformation.setVisibility(View.GONE);
                     layoutEditStock.setVisibility(View.VISIBLE);
                     layoutEditDiscount.setVisibility(View.GONE);
                     layoutDeleteProduct.setVisibility(View.GONE);
-                    httpRequest_getProductInformation(productId, i);
+                    httpRequest_getProductInformation(productId(), i);
                 }else if(i==2){
                     layoutEditInformation.setVisibility(View.GONE);
                     layoutEditStock.setVisibility(View.GONE);
                     layoutEditDiscount.setVisibility(View.VISIBLE);
                     layoutDeleteProduct.setVisibility(View.GONE);
-                    httpRequest_getProductInformation(productId, i);
+                    httpRequest_getProductInformation(productId(), i);
                 }else if(i==3){
                     layoutEditInformation.setVisibility(View.GONE);
                     layoutEditStock.setVisibility(View.GONE);
@@ -149,13 +157,6 @@ public class EditProductActivity extends AppCompatActivity {
         });
     }
 
-
-
-    public String companyCode(){
-        final Bundle bundle = getIntent().getExtras();
-        final String companyCode = bundle.getString("companyCode");
-        return companyCode;
-    }
 
     public void getProductInformation(String productCode, String productName, String purchasePrice, String sellingPrice, String description, String categoryName){
         final Bundle bundle = getIntent().getExtras();
@@ -180,7 +181,7 @@ public class EditProductActivity extends AppCompatActivity {
             }
         });
 
-        httpRequest_getProductPicture(getProductId());
+        httpRequest_getProductPicture(productId());
 
 
         editProductCode.setText(productCode);
@@ -231,7 +232,7 @@ public class EditProductActivity extends AppCompatActivity {
 
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
-            httpPost_uploadProfile(Crop.getOutput(result), String.valueOf(getProductId()));
+            httpPost_uploadProfile(Crop.getOutput(result), String.valueOf(productId()));
             imageProfile.setImageURI(Crop.getOutput(result));
         } else if (resultCode == Crop.RESULT_ERROR) {
 
@@ -259,7 +260,7 @@ public class EditProductActivity extends AppCompatActivity {
                             respon.getMessage(),
                             Toast.LENGTH_SHORT).show();
                     if(respon.getStatusCode().equalsIgnoreCase("200")){
-                        url_profile = respon.getImage();
+                        setUrl_profile(respon.getImage());
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
@@ -361,17 +362,9 @@ public class EditProductActivity extends AppCompatActivity {
         });
     }
 
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String name) {
-        this.categoryName = name;
-    }
-
 
     public void httpRequest_updateProductInformation(final int productId, String productCode, String name, int category, int purchasePrice, int sellingPrice, String description, String companyCode, String url_profile){
-        UpdateProductInformation client =  StaticFunction.retrofit().create(UpdateProductInformation.class);
+        PostUpdateProductInformation client =  StaticFunction.retrofit().create(PostUpdateProductInformation.class);
         Call<Respon> call = client.setVar(productId, productCode, name, category, purchasePrice, sellingPrice, description, companyCode, url_profile);
 
         call.enqueue(new Callback<Respon>() {
@@ -385,11 +378,10 @@ public class EditProductActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                     if(respon.getStatusCode().equalsIgnoreCase("200")){
                         httpRequest_getProductInformation(productId, 0);
-//                        new Memcache(getApplicationContext()).setProductDetail(respon.getProductDetail());
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -404,25 +396,9 @@ public class EditProductActivity extends AppCompatActivity {
         });
     }
 
-    public interface UpdateProductInformation {
-        @FormUrlEncoded
-        @POST("api/v1/update-product-information")
-        Call<Respon> setVar(
-                @Field("id") int productId,
-                @Field("product_code") String productCode,
-                @Field("name") String name,
-                @Field("category") int category,
-                @Field("purchase_price") int purchasePrice,
-                @Field("selling_price") int sellingPrice,
-                @Field("description") String description,
-                @Field("company_code") String companyCode,
-                @Field("picture") String url_profile
-        );
-    }
-
     public void httpRequest_updateProductStock(final int productId, int stock){
         mProgressDialog.show();
-        UpdateProductStock client =  StaticFunction.retrofit().create(UpdateProductStock.class);
+        PostUpdateProductStock client =  StaticFunction.retrofit().create(PostUpdateProductStock.class);
         Call<Respon> call = client.setVar(productId, stock);
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -439,7 +415,7 @@ public class EditProductActivity extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -454,18 +430,9 @@ public class EditProductActivity extends AppCompatActivity {
         });
     }
 
-    public interface UpdateProductStock {
-        @FormUrlEncoded
-        @POST("api/v1/update-product-stock")
-        Call<Respon> setVar(
-                @Field("id") int productId,
-                @Field("stock") int stock
-        );
-    }
-
     public void httpRequest_updateProductDiscount(final int productId, int disc){
         mProgressDialog.show();
-        UpdateProductDiscount client =  StaticFunction.retrofit().create(UpdateProductDiscount.class);
+        PostUpdateProductDiscount client =  StaticFunction.retrofit().create(PostUpdateProductDiscount.class);
         Call<Respon> call = client.setVar(productId, disc);
 
         call.enqueue(new Callback<Respon>() {
@@ -498,18 +465,9 @@ public class EditProductActivity extends AppCompatActivity {
         });
     }
 
-    public interface UpdateProductDiscount {
-        @FormUrlEncoded
-        @POST("api/v1/update-product-disc")
-        Call<Respon> setVar(
-                @Field("id") int productId,
-                @Field("disc") int disc
-        );
-    }
-
     public void httpRequest_deleteProduct(int productId){
         mProgressDialog.show();
-        DeleteProduct client =  StaticFunction.retrofit().create(DeleteProduct.class);
+        PostDeleteProduct client =  StaticFunction.retrofit().create(PostDeleteProduct.class);
         Call<Respon> call = client.setVar(productId);
 
         call.enqueue(new Callback<Respon>() {
@@ -527,7 +485,7 @@ public class EditProductActivity extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -540,14 +498,6 @@ public class EditProductActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public interface DeleteProduct {
-        @FormUrlEncoded
-        @POST("api/v1/delete-product")
-        Call<Respon> setVar(
-                @Field("id") int productId
-        );
     }
 
     public void httpRequest_getProductInformation(int id, final int index){
@@ -575,30 +525,23 @@ public class EditProductActivity extends AppCompatActivity {
                         }else if(index==2){
                             getProductDiscount(String.valueOf(product.getDisc()));
                         }
-
-
                     }else{
                         Toast.makeText(getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            getResources().getString(R.string.error_async_text),
+                            Toast.LENGTH_LONG).show();
                 }
-
             }
-
             @Override
             public void onFailure(Call<Respon> call, Throwable t) {
+                mProgressDialog.dismiss();
                 Toast.makeText(getApplicationContext(),
                         getResources().getString(R.string.error_async_text),
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-
-    public interface GetProductDetail {
-        @GET("api/v1/get-product-detail")
-        Call<Respon> setVar(
-                @Query("id") Integer id
-        );
     }
 
     public void httpRequest_getProductPicture(int id){
@@ -615,24 +558,22 @@ public class EditProductActivity extends AppCompatActivity {
                         if(respon.getProductPict().getPicture().equals("")){
                             //Toast.makeText(getApplicationContext(),"Gak Ada"+respon.getProductPict().getPicture(), Toast.LENGTH_LONG).show();
                         }else{
-                            //Toast.makeText(getApplicationContext(),"Ada"+respon.getProductPict().getPicture(), Toast.LENGTH_LONG).show();
                             setUrl_profile(respon.getProductPict().getPicture());
                             imageProfile = (ImageView) findViewById(R.id.editProductPicture);
-                            //Glide.clear(imageProfile);
                             Glide.with(getApplicationContext()).load(StaticFunction.imageUrl(getUrl_profile())).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageProfile);
-                          //  imageProfile = (ImageView) findViewById(R.id.editProductPicture);
-                           // Glide.clear(imageProfile);
-                           // Glide.with(getApplicationContext()).load(StaticFunction.imageUrl(respon.getProductPict().getPicture())).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageProfile);
                         }
                     }else{
                         Toast.makeText(getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }else {
+                    Toast.makeText(getApplicationContext(),
+                            getResources().getString(R.string.error_async_text),
+                            Toast.LENGTH_LONG).show();
                 }
-
             }
-
             @Override
             public void onFailure(Call<Respon> call, Throwable t) {
+                mProgressDialog.dismiss();
                 Toast.makeText(getApplicationContext(),
                         getResources().getString(R.string.error_async_text),
                         Toast.LENGTH_LONG).show();
@@ -640,22 +581,12 @@ public class EditProductActivity extends AppCompatActivity {
         });
     }
 
-
-    public interface GetProductPicture {
-        @GET("api/v1/get-product-pict")
-        Call<Respon> setVar(
-                @Query("id") Integer id
-        );
-    }
-
     public void httpRequest_getCategoryList(String id){
-        mProgressDialog.show();
        GetCategoryList client =  StaticFunction.retrofit().create(GetCategoryList.class);
         Call<Respon> call = client.setVar(id);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
-                //mProgressDialog.dismiss();
                 if(response.isSuccessful()) {
                     Respon respon = response.body();
                     if (respon.getStatusCode().equals("200")) {
@@ -673,8 +604,11 @@ public class EditProductActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                }
-
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            getResources().getString(R.string.error_async_text),
+                            Toast.LENGTH_LONG).show();
+                    }
             }
 
             @Override
@@ -686,24 +620,11 @@ public class EditProductActivity extends AppCompatActivity {
         });
     }
 
-    public interface GetCategoryList {
-        @GET("api/v1/get-category")
-        Call<Respon> setVar(
-                @Query("id") String id
-        );
-    }
-
 
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
 
 }

@@ -19,11 +19,11 @@ public class ExpenseFragment extends Fragment {
     private ProgressDialog mProgressDialog;
     private CashInFragment cashInFragment;
     private CashOutFragment cashOutFragment;
-    View view;
+    private View thisView;
+
     public ExpenseFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,14 +36,18 @@ public class ExpenseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_expense, container, false);
-
-        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        cashInFragment = new CashInFragment();
-        cashOutFragment = new CashOutFragment();
+        View view = inflater.inflate(R.layout.fragment_expense, container, false);
+        thisView = view;
+        initVar();
         setupViewPager(viewPager);
         return view;
+    }
+
+    private void initVar(){
+        viewPager = thisView.findViewById(R.id.viewpager);
+        tabLayout = thisView.findViewById(R.id.tabs);
+        cashInFragment = new CashInFragment();
+        cashOutFragment = new CashOutFragment();
     }
 
     private void setupViewPager(ViewPager viewPager) {

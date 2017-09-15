@@ -51,8 +51,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         final Product product = productList.get(position);
         Glide.clear(holder.imageViewProduct);
         if (product.getPicture().equals("")){
-            //Glide.with(thisActivity).load(StaticFunction.imageUrl("59b1df5bc9004.png")).diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.imageViewProduct);
-        }else
+            //Do nothing
+         }else
             Glide.with(thisActivity).load(StaticFunction.imageUrl(product.getPicture())).diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.imageViewProduct);
 
         holder.txtProductName.setText(product.getProductCode()+"/"+product.getProductName());

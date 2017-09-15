@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.PostDeleteCashOut;
 import com.ezpz.pos.fragment.CashOutFragment;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.CashOut;
@@ -22,9 +23,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 
 /**
  * Created by RezaPramudhika on 9/10/2017.
@@ -109,7 +107,7 @@ public class CashOutAdapter extends RecyclerView.Adapter<CashOutAdapter.MyHolder
     }
 
     public void httpRequest_postDeleteCashOut(int id, int type, final String companyCode){
-        DeleteCashOut client =  StaticFunction.retrofit().create(DeleteCashOut.class);
+        PostDeleteCashOut client =  StaticFunction.retrofit().create(PostDeleteCashOut.class);
         Call<Respon> call = client.setVar(id, type);
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -123,7 +121,7 @@ public class CashOutAdapter extends RecyclerView.Adapter<CashOutAdapter.MyHolder
                         Toast.makeText(thisActivity.getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(thisActivity.getApplicationContext(),
-                            "Server offline",
+                            thisActivity.getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -137,14 +135,4 @@ public class CashOutAdapter extends RecyclerView.Adapter<CashOutAdapter.MyHolder
         });
     }
 
-
-
-    public interface DeleteCashOut {
-        @FormUrlEncoded
-        @POST("api/v1/delete-cash")
-        Call<Respon> setVar(
-                @Field("id") int totalCash,
-                @Field("type") int type
-        );
-    }
 }

@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.ezpz.pos.R;
 import com.ezpz.pos.activity.MainPanelActivity;
 import com.ezpz.pos.adapter.ProductAdapter;
+import com.ezpz.pos.api.GetCategoryList;
+import com.ezpz.pos.api.GetProductList;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Category;
 import com.ezpz.pos.provider.Product;
@@ -29,8 +31,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 
 public class ProductFragment extends Fragment {
@@ -39,11 +39,12 @@ public class ProductFragment extends Fragment {
     private List<Product> products;
     private SwipeRefreshLayout swipeRefreshLayout;
     private String[] getItemCategory;
-    Spinner spnCategory;
+    private Spinner spnCategory;
     private RecyclerView productList;
     private RecyclerView.Adapter adapter;
-    ArrayAdapter<String> categoryAdapter;
+    private ArrayAdapter<String> categoryAdapter;
     private ProgressDialog mProgressDialog;
+    private View thisView;
 
 
     public ProductFragment() {
@@ -63,21 +64,13 @@ public class ProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product, container, false);
+        thisView = view;
 
-        spnCategory = (Spinner) view.findViewById(R.id.spinnerCategory);
+        initVar();
+
         httpRequest_getCategoryList(companyCode());
 
-        productList = (RecyclerView) view.findViewById(R.id.productListRecycleView);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        productList.setLayoutManager(mLayoutManager);
-        productList.setItemAnimator(new DefaultItemAnimator());
-
-        products = new ArrayList<>();
-
-        adapter = new ProductAdapter(getActivity(),products, getContext());
-
-        productList.setAdapter(adapter);
-
+        loadProductList();
 
         spnCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -91,7 +84,6 @@ public class ProductFragment extends Fragment {
             }
         });
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayoutProduct);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -103,9 +95,26 @@ public class ProductFragment extends Fragment {
         return view;
     }
 
+    private void initVar(){
+        spnCategory = thisView.findViewById(R.id.spinnerCategory);
+        productList = thisView.findViewById(R.id.productListRecycleView);
+        swipeRefreshLayout = thisView.findViewById(R.id.swipeRefreshLayoutProduct);
+    }
+
+    private void loadProductList(){
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        productList.setLayoutManager(mLayoutManager);
+        productList.setItemAnimator(new DefaultItemAnimator());
+
+        products = new ArrayList<>();
+
+        adapter = new ProductAdapter(getActivity(),products, getContext());
+
+        productList.setAdapter(adapter);
+    }
+
 
     private void populatingSpinnerCategory(List<Category> thisCategoryList){
-        spnCategory = (Spinner) getView().findViewById(R.id.spinnerCategory);
         categoryList = thisCategoryList;
         if (categoryList.size()==0){
             final String[] categoryItems = new String[0+1];
@@ -125,16 +134,6 @@ public class ProductFragment extends Fragment {
             categoryAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, categoryItems);
             spnCategory.setAdapter(categoryAdapter);
         }
-
-    }
-
-
-    public List<Category> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
     }
 
     public String companyCode(){
@@ -146,12 +145,10 @@ public class ProductFragment extends Fragment {
 
     public void httpRequest_getProductList(String companyCode, int category){
         String idCategory;
-
         if (category<0){
             idCategory = "";
         }else
             idCategory = String.valueOf(categoryList.get(category).getId());
-
         mProgressDialog.show();
         GetProductList client =  StaticFunction.retrofit().create(GetProductList.class);
         Call<Respon> call = client.setVar(companyCode, idCategory);
@@ -172,9 +169,7 @@ public class ProductFragment extends Fragment {
                         Toast.makeText(getActivity().getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
-
             }
-
             @Override
             public void onFailure(Call<Respon> call, Throwable t) {
                 mProgressDialog.dismiss();
@@ -183,14 +178,6 @@ public class ProductFragment extends Fragment {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public interface GetProductList {
-        @GET("api/v1/get-product")
-        Call<Respon> setVar(
-                @Query("company_code") String companyCode,
-                @Query("category") String category
-        );
     }
 
     public void httpRequest_getCategoryList(String id){
@@ -202,17 +189,13 @@ public class ProductFragment extends Fragment {
                 if(response.isSuccessful()) {
                     Respon respon = response.body();
                     if (respon.getStatusCode().equals("200")) {
-                        spnCategory = (Spinner) getView().findViewById(R.id.spinnerAddProductCategory);
                         categoryList = respon.getCategory();
                         populatingSpinnerCategory(categoryList);
-                        setCategoryList(categoryList);
                     }else{
                         Toast.makeText(getActivity().getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
-
             }
-
             @Override
             public void onFailure(Call<Respon> call, Throwable t) {
                 Toast.makeText(getActivity().getApplicationContext(),
@@ -220,18 +203,5 @@ public class ProductFragment extends Fragment {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public interface GetCategoryList {
-        @GET("api/v1/get-category")
-        Call<Respon> setVar(
-                @Query("id") String id
-        );
-    }
-
-    @Override
-    public void onResume() {
-        httpRequest_getProductList(companyCode(),spnCategory.getSelectedItemPosition()-1);
-        super.onResume();
     }
 }

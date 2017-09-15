@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.ezpz.pos.R;
 import com.ezpz.pos.activity.MainPanelActivity;
 import com.ezpz.pos.adapter.TopProductAdapter;
+import com.ezpz.pos.api.GetDashboard;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.ProductFav;
 import com.ezpz.pos.provider.Respon;
@@ -28,8 +29,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 
 public class DashboardFragment extends Fragment {
@@ -41,6 +40,7 @@ public class DashboardFragment extends Fragment {
     private RecyclerView topProductRecyclerView;
     private Activity thisActivity;
     private Context thisContext;
+    private View thisView;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -58,20 +58,38 @@ public class DashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         thisActivity = getActivity();
         thisContext = getContext();
+        thisView=view;
+        initVar();
+        httpRequest_getDashboard(companyCode());
+        loadTopProduct();
+        return view;
+    }
 
-        topProductRecyclerView = (RecyclerView) view.findViewById(R.id.topProductRecycleView);
+    private void initVar(){
+        topProductRecyclerView = thisView.findViewById(R.id.topProductRecycleView);
+        txtTotalSales = thisView.findViewById(R.id.txtTotalSales);
+        txtTotalMember = thisView.findViewById(R.id.txtTotalMember);
+        txtTotalCashIn = thisView.findViewById(R.id.txtTotalCashIn);
+        txtTotalCashOut = thisView.findViewById(R.id.txtTotalCashOut);
+        swipeRefreshLayout = thisView.findViewById(R.id.swipeRefreshLayoutProduct);
+    }
+
+    public void loadDashboardData(String totalSales, String totalMember, String totalCashIn, String totalCashOut){
+        txtTotalSales.setText(totalSales);
+        txtTotalMember.setText(totalMember);
+        txtTotalCashIn.setText(StaticFunction.moneyFormat(Double.valueOf(totalCashIn)));
+        txtTotalCashOut.setText(StaticFunction.moneyFormat(Double.valueOf(totalCashOut)));
+    }
+
+    public void loadTopProduct(){
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         topProductRecyclerView.setLayoutManager(mLayoutManager);
         topProductRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
         adapter = new TopProductAdapter(thisActivity, productFavList, thisContext);
-
         topProductRecyclerView.setAdapter(adapter);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayoutProduct);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -80,25 +98,6 @@ public class DashboardFragment extends Fragment {
 
             }
         });
-
-        httpRequest_getDashboard(companyCode());
-
-        return view;
-    }
-
-    public void loadDashboardData(String totalSales, String totalMember, String totalCashIn, String totalCashOut){
-        final TextView txtTotalSales = getView().findViewById(R.id.txtTotalSales);
-        final TextView txtTotalMember = getView().findViewById(R.id.txtTotalMember);
-        final TextView txtTotalCashIn = getView().findViewById(R.id.txtTotalCashIn);
-        final TextView txtTotalCashOut = getView().findViewById(R.id.txtTotalCashOut);
-        txtTotalSales.setText(totalSales);
-        txtTotalMember.setText(totalMember);
-        txtTotalCashIn.setText(StaticFunction.moneyFormat(Double.valueOf(totalCashIn)));
-        txtTotalCashOut.setText(StaticFunction.moneyFormat(Double.valueOf(totalCashOut)));
-    }
-
-    public void loadTopProduct(final List<ProductFav> productFavList){
-
     }
 
     public String companyCode(){
@@ -106,8 +105,6 @@ public class DashboardFragment extends Fragment {
         final String myDataFromActivity = activity.getCompanyCode();
         return myDataFromActivity;
     }
-
-
 
     public void httpRequest_getDashboard(String companyCode){
         mProgressDialog.show();
@@ -124,7 +121,6 @@ public class DashboardFragment extends Fragment {
                                 String.valueOf(respon.getTotalMember()),
                                 String.valueOf(respon.getTotalCashIn()),
                                 String.valueOf(respon.getTotalCashOut()));
-
                         productFavList.clear();
                         for (ProductFav productFav : respon.getProductFavList()) {
                             productFavList.add(productFav);
@@ -135,28 +131,15 @@ public class DashboardFragment extends Fragment {
                         Toast.makeText(thisActivity.getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
-
             }
 
             @Override
             public void onFailure(Call<Respon> call, Throwable t) {
-                System.out.println("11");
                 mProgressDialog.dismiss();
-                System.out.println("12");
                 Toast.makeText(thisActivity.getApplicationContext(),
                         getResources().getString(R.string.error_async_text),
                         Toast.LENGTH_LONG).show();
             }
         });
     }
-
-    public interface GetDashboard {
-        @GET("api/v1/get-dashboard")
-        Call<Respon> setVar(
-                @Query("company_code") String companyCode
-        );
-    }
-
-
-
 }

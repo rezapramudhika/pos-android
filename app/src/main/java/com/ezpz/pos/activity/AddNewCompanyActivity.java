@@ -12,7 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ezpz.pos.R;
-import com.ezpz.pos.api.PostNewCompany;
+import com.ezpz.pos.api.PostCreateCompany;
 import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.BusinessCategory;
@@ -79,7 +79,7 @@ public class AddNewCompanyActivity extends AppCompatActivity {
     }
 
     public void httpRequest_postNewCompany(String name, String address, String contact, Integer businessCategory, Integer userId){
-        PostNewCompany client =  StaticFunction.retrofit().create(PostNewCompany.class);
+        PostCreateCompany client =  StaticFunction.retrofit().create(PostCreateCompany.class);
         Call<Respon> call = client.setVar(name, address, contact, businessCategory, userId);
 
         call.enqueue(new Callback<Respon>() {

@@ -96,8 +96,8 @@ public class BusinessListActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     Respon respon = response.body();
                     if (respon.getStatusCode().equals("200")) {
-                        for (Company messageBox : respon.getCompany()) {
-                            companyList.add(messageBox);
+                        for (Company company : respon.getCompany()) {
+                            companyList.add(company);
                         }
                         adapter.notifyDataSetChanged();
                         swipeRefreshLayout.setRefreshing(false);
