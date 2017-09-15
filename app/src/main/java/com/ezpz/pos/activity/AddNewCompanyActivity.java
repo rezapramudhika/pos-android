@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.PostNewCompany;
 import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.BusinessCategory;
@@ -23,46 +24,39 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 
-public class AddNewBusinessActivity extends AppCompatActivity {
-    ProgressDialog mProgressDialog;
+public class AddNewCompanyActivity extends AppCompatActivity {
+    private ProgressDialog mProgressDialog;
     private List<BusinessCategory> listBusinessCategory;
     private ArrayAdapter<String> adapterBusinessCategory;
-    EditText inputName, inputAddress, inputContact;
-    Spinner spinnerBusinessType;
-    User user;
+    private EditText inputName, inputAddress, inputContact;
+    private Spinner spinnerBusinessType;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_business);
         initVar();
-
+        populatingBusinessCategory();
     }
 
     public void initVar(){
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
-        spinnerBusinessType = (Spinner) findViewById(R.id.spinnerBusinessType);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAddNewBusiness);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Add New Business");
+        getSupportActionBar().setTitle("Add New Company");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.backbtn);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddNewBusinessActivity.this, BusinessListActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        //----spinner----//
+
+        spinnerBusinessType = (Spinner) findViewById(R.id.spinnerBusinessType);
+
+        user = new Memcache(getApplicationContext()).getUser();
+    }
+
+    private void populatingBusinessCategory(){
         listBusinessCategory = new Memcache(getApplicationContext()).getBusinessCategory();
         String[] itemsBusinessCategory = new String[listBusinessCategory.size()];
         for(int i=0; i<listBusinessCategory.size(); i++){
@@ -71,24 +65,21 @@ public class AddNewBusinessActivity extends AppCompatActivity {
         }
         adapterBusinessCategory = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, itemsBusinessCategory);
         spinnerBusinessType.setAdapter(adapterBusinessCategory);
-        //----spinner----//
-
-        user = new Memcache(getApplicationContext()).getUser();
     }
 
     public void addNewBusinessOnClick(View view){
         inputName = (EditText) findViewById(R.id.inputBusinessName);
         inputAddress = (EditText) findViewById(R.id.inputBusinessAddress);
         inputContact = (EditText) findViewById(R.id.inputBusinessContact);
-        httpRequest_postNewBusiness(inputName.getText().toString(),
+        httpRequest_postNewCompany(inputName.getText().toString(),
                 inputAddress.getText().toString(),
                 inputContact.getText().toString(),
                 listBusinessCategory.get(spinnerBusinessType.getSelectedItemPosition()).getId(),
                 user.getId());
     }
 
-    public void httpRequest_postNewBusiness(String name, String address, String contact, Integer businessCategory, Integer userId){
-        AddNewBusiness client =  StaticFunction.retrofit().create(AddNewBusiness.class);
+    public void httpRequest_postNewCompany(String name, String address, String contact, Integer businessCategory, Integer userId){
+        PostNewCompany client =  StaticFunction.retrofit().create(PostNewCompany.class);
         Call<Respon> call = client.setVar(name, address, contact, businessCategory, userId);
 
         call.enqueue(new Callback<Respon>() {
@@ -101,7 +92,7 @@ public class AddNewBusinessActivity extends AppCompatActivity {
                             respon.getMessage(),
                             Toast.LENGTH_LONG).show();
                     if(respon.getStatusCode().equalsIgnoreCase("200")){
-                        startActivity(new Intent(AddNewBusinessActivity.this, BusinessListActivity.class));
+                        startActivity(new Intent(AddNewCompanyActivity.this, BusinessListActivity.class));
                         Toast.makeText(getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -121,17 +112,9 @@ public class AddNewBusinessActivity extends AppCompatActivity {
         });
     }
 
-    public interface AddNewBusiness {
-        @FormUrlEncoded
-        @POST("api/v1/add-new-business")
-        Call<Respon> setVar(
-                @Field("name") String name,
-                @Field("address") String address,
-                @Field("contact") String contact,
-                @Field("business_category") Integer businessCategory,
-                @Field("user_id") Integer userId
-        );
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
-
-
 }

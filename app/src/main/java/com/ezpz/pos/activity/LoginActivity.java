@@ -2,15 +2,15 @@ package com.ezpz.pos.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.PostLogin;
 import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Respon;
@@ -18,13 +18,10 @@ import com.ezpz.pos.provider.Respon;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 
 public class LoginActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
-    EditText emailInput, passwordInput;
+    private EditText emailInput, passwordInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view){
-        if(isValidEmail(emailInput.getText()) && passwordInput.getText().length() > 5){
+        if(StaticFunction.isValidEmail(emailInput.getText()) && passwordInput.getText().length() > 5){
             httpRequest_postLogin(emailInput.getText().toString(), passwordInput.getText().toString());
         }else{
             Toast.makeText(getApplicationContext(), "Email or password doesn't valid", Toast.LENGTH_SHORT).show();
@@ -57,18 +54,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    public final static boolean isValidEmail(CharSequence target) {
-        if (TextUtils.isEmpty(target)) {
-            return false;
-        } else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-        }
-    }
-
     public void httpRequest_postLogin(String email, String password){
         mProgressDialog.show();
-        Login client =  StaticFunction.retrofit().create(Login.class);
+        PostLogin client =  StaticFunction.retrofit().create(PostLogin.class);
         Call<Respon> call = client.setVar(email, StaticFunction.md5(password));
 
         call.enqueue(new Callback<Respon>() {
@@ -107,14 +95,5 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public interface Login {
-        @FormUrlEncoded
-        @POST("api/v1/login")
-        Call<Respon> setVar(
-                @Field("email") String email,
-                @Field("password") String password
-        );
     }
 }

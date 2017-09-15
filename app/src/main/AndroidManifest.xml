@@ -35,7 +35,7 @@
             android:name=".activity.BusinessListActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name=".activity.AddNewBusinessActivity"
+            android:name=".activity.AddNewCompanyActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".activity.MainPanelActivity"

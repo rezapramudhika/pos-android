@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.ezpz.pos.R;
 import com.ezpz.pos.adapter.BusinessAdapter;
+import com.ezpz.pos.api.GetBusinessList;
 import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Company;
@@ -28,8 +29,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public class BusinessListActivity extends AppCompatActivity {
     private RecyclerView businessList;
@@ -44,7 +43,7 @@ public class BusinessListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_list);
         initVar();
-
+        populatingBusinessList();
     }
 
     public void initVar(){
@@ -54,22 +53,22 @@ public class BusinessListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarBusinessList);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Business List");
-
-
+        thisActivity = this;
         businessList = (RecyclerView) findViewById(R.id.businessRecycleView);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+    }
+
+    public void populatingBusinessList(){
+
         businessList.setLayoutManager(new LinearLayoutManager(this));
         businessList.setItemAnimator(new DefaultItemAnimator());
 
         companyList = new ArrayList<>();
 
-        //binding cashierProductAdapter
-
-
-        adapter = new BusinessAdapter(companyList, this);
+        adapter = new BusinessAdapter(companyList, thisActivity);
 
         businessList.setAdapter(adapter);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -82,7 +81,7 @@ public class BusinessListActivity extends AppCompatActivity {
     }
 
     public void linkToAddBusiness(View view){
-        Intent intent = new Intent(BusinessListActivity.this, AddNewBusinessActivity.class);
+        Intent intent = new Intent(BusinessListActivity.this, AddNewCompanyActivity.class);
         startActivity(intent);
     }
 
@@ -119,26 +118,14 @@ public class BusinessListActivity extends AppCompatActivity {
         });
     }
 
-    public interface GetBusinessList {
-        @GET("api/v1/get-business-list")
-        Call<Respon> setVar(
-                @Query("id") Integer userId
-        );
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-
         getMenuInflater().inflate(R.menu.business_list_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         if(id == R.id.logout){

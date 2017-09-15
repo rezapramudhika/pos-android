@@ -61,8 +61,6 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.ViewHo
                 context.startActivity(new Intent(context, MainPanelActivity.class).putExtras(bundle));
             }
         });
-
-
     }
 
     @Override

@@ -4,22 +4,19 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.PostRegister;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Respon;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 
 public class RegisterActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
@@ -42,15 +39,18 @@ public class RegisterActivity extends AppCompatActivity {
         emailInput = (EditText) findViewById(R.id.inputRegisterEmail);
         passwordInput = (EditText) findViewById(R.id.inputRegisterPassword);
     }
+
     public void register(View view){
         if(nameInput.getText().length()<2){
             Toast.makeText(getApplicationContext(), "Name at least 3 characters", Toast.LENGTH_SHORT).show();
-        }else if(!isValidEmail(emailInput.getText())){
+        }else if(!StaticFunction.isValidEmail(emailInput.getText())){
             Toast.makeText(getApplicationContext(), "Invalid email", Toast.LENGTH_SHORT).show();
         }else if(passwordInput.getText().length() < 7){
             Toast.makeText(getApplicationContext(), "Password at least 6 characters", Toast.LENGTH_SHORT).show();
         }else
-            httpRequest_postRegister(nameInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString());
+            httpRequest_postRegister(nameInput.getText().toString(),
+                    emailInput.getText().toString(),
+                    passwordInput.getText().toString());
     }
 
     public void linkToLogin(View view){
@@ -59,16 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    public final static boolean isValidEmail(CharSequence target) {
-        if (TextUtils.isEmpty(target)) {
-            return false;
-        } else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-        }
-    }
-
     public void httpRequest_postRegister(String name, String email, String password){
-        Register client =  StaticFunction.retrofit().create(Register.class);
+        PostRegister client =  StaticFunction.retrofit().create(PostRegister.class);
         Call<Respon> call = client.setVar(name, email, StaticFunction.md5(password));
 
         call.enqueue(new Callback<Respon>() {
@@ -100,15 +92,4 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-
-    public interface Register {
-        @FormUrlEncoded
-        @POST("api/v1/register")
-        Call<Respon> setVar(
-                @Field("name") String name,
-                @Field("email") String email,
-                @Field("password") String password
-        );
-    }
-
 }
