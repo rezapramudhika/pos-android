@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ezpz.pos.fragment.CashOutFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/cashOutRecycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+            <Button
+                android:id="@+id/btnLinkToAddCashOut"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Add Cash Out" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

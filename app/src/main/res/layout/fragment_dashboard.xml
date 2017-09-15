@@ -1,0 +1,198 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ezpz.pos.fragment.DashboardFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="5dp"
+                        android:background="@android:color/white">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="15dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentTop="true"
+                            android:textSize="14dp"
+                            android:textColor="@android:color/black"
+                            android:text="Total Sales"/>
+                        <TextView
+                            android:id="@+id/txtTotalSales"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="15dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:textColor="@color/colorPrimary"
+                            android:textAlignment="center"
+                            android:text="####"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="5dp"
+                        android:background="@android:color/white">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="15dp"
+                            android:textSize="14dp"
+                            android:textColor="@android:color/black"
+                            android:text="Total Member"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true" />
+                        <TextView
+                            android:id="@+id/txtTotalMember"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="15dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimary"
+                            android:text="####"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="5dp"
+                        android:background="@android:color/white">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="15dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentTop="true"
+                            android:textSize="14dp"
+                            android:textColor="@android:color/black"
+                            android:textAlignment="center"
+                            android:text="Total Cash In"/>
+                        <TextView
+                            android:id="@+id/txtTotalCashIn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="15dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            android:textSize="18dp"
+                            android:textColor="@android:color/holo_green_dark"
+                            android:text="####"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="5dp"
+                        android:background="@android:color/white">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="15dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentTop="true"
+                            android:textSize="14dp"
+                            android:textColor="@android:color/black"
+                            android:textAlignment="center"
+                            android:text="Total Cash Out"/>
+                        <TextView
+                            android:id="@+id/txtTotalCashOut"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="15dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textAlignment="center"
+                            android:text="####"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Top 5 Favorite Product"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="1dp"
+                        android:background="#c0c0c0"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayoutProduct"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/topProductRecycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

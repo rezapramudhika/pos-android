@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+
+        <TextView
+            android:id="@+id/titleEditCustomer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="New Customer"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:textAlignment="center"/>
+
+        <EditText
+            android:id="@+id/inputCustomerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textCapWords"
+            android:hint="Name" />
+
+        <EditText
+            android:id="@+id/inputCustomerEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:hint="Email" />
+
+        <EditText
+            android:id="@+id/inputCustomerAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textCapWords"
+            android:hint="Address" />
+
+        <EditText
+            android:id="@+id/inputCustomerContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textCapWords"
+            android:hint="Contact" />
+
+        <Button
+            android:id="@+id/btnAddNewCustomer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Add New Customer" />
+
+
+
+</LinearLayout>

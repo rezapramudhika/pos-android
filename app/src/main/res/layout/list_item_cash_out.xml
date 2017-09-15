@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutCashOutItem"
+    android:layout_marginTop="2dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/txtTimestamps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@android:color/black"
+        android:text="Timestamp"/>\
+
+    <TextView
+        android:id="@+id/txtTotalCashOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:text="Total Cash Out"
+        android:layout_alignParentLeft="true"
+        android:layout_alignStart="@+id/txtTimestamps"/>
+
+    <TextView
+        android:id="@+id/txtDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:text="Description"
+        android:layout_alignParentLeft="true"
+        android:layout_alignStart="@+id/txtTotalCashOut"
+        android:layout_marginTop="20dp"/>
+
+
+
+</RelativeLayout>

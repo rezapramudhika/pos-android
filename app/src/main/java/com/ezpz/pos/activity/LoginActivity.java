@@ -1,0 +1,120 @@
+package com.ezpz.pos.activity;
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.Window;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.ezpz.pos.R;
+import com.ezpz.pos.other.Memcache;
+import com.ezpz.pos.other.StaticFunction;
+import com.ezpz.pos.provider.Respon;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
+
+public class LoginActivity extends AppCompatActivity {
+    private ProgressDialog mProgressDialog;
+    EditText emailInput, passwordInput;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_login);
+        initVar();
+    }
+
+    public void initVar(){
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+
+        emailInput = (EditText) findViewById(R.id.inputLoginEmail);
+        passwordInput = (EditText) findViewById(R.id.inputLoginPassword);
+
+    }
+
+    public void login(View view){
+        if(isValidEmail(emailInput.getText()) && passwordInput.getText().length() > 5){
+            httpRequest_postLogin(emailInput.getText().toString(), passwordInput.getText().toString());
+        }else{
+            Toast.makeText(getApplicationContext(), "Email or password doesn't valid", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void linkToRegister(View view){
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
+
+    public final static boolean isValidEmail(CharSequence target) {
+        if (TextUtils.isEmpty(target)) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
+
+    public void httpRequest_postLogin(String email, String password){
+        mProgressDialog.show();
+        Login client =  StaticFunction.retrofit().create(Login.class);
+        Call<Respon> call = client.setVar(email, StaticFunction.md5(password));
+
+        call.enqueue(new Callback<Respon>() {
+            @Override
+            public void onResponse(Call<Respon> call, Response<Respon> response) {
+                mProgressDialog.dismiss();
+                if(response.isSuccessful()) {
+                    Respon respon = response.body();
+                    if(respon.getStatusCode().equalsIgnoreCase("200")){
+                        if(respon.getLevel()==1){
+                            new Memcache(getApplicationContext()).setUser(respon.getUser());
+                            new Memcache(getApplicationContext()).setStaff(respon.getStaff());
+                            new Memcache(getApplicationContext()).setBusinessCategory(respon.getBusinessCategory());
+                            startActivity(new Intent(LoginActivity.this, BusinessListActivity.class));
+                            finish();
+                        }else if(respon.getLevel()==2){
+                            new Memcache(getApplicationContext()).setUser(respon.getUser());
+                            startActivity(new Intent(LoginActivity.this, LoadMemcachedCashier.class));
+                            finish();
+                        }
+                    }else{
+                        Toast.makeText(getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            "Server offline",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Respon> call, Throwable t) {
+                mProgressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),
+                        getResources().getString(R.string.error_async_text),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public interface Login {
+        @FormUrlEncoded
+        @POST("api/v1/login")
+        Call<Respon> setVar(
+                @Field("email") String email,
+                @Field("password") String password
+        );
+    }
+}

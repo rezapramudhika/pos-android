@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ezpz.pos.fragment.ProductFragment"
+    android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/colorLightGrey">
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="10"/>
+</LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayoutProduct"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/productListRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</android.support.v4.widget.SwipeRefreshLayout>
+
+
+</LinearLayout>
