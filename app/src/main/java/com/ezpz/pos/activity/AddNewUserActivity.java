@@ -11,7 +11,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.PostRegister;
 import com.ezpz.pos.other.Memcache;
+import com.ezpz.pos.other.SendMail;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Respon;
 import com.ezpz.pos.provider.Staff;
@@ -21,14 +23,14 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
+
+import static com.ezpz.pos.other.StaticFunction.getRandomString;
 
 public class AddNewUserActivity extends AppCompatActivity {
     ProgressDialog mProgressDialog;
     Spinner spnUserPosition;
     List<Staff> staffList;
+    String verification;
 
 
     @Override
@@ -49,6 +51,7 @@ public class AddNewUserActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Add User");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        verification = getRandomString(30);
     }
 
     public String companyCode(){
@@ -63,12 +66,32 @@ public class AddNewUserActivity extends AppCompatActivity {
         EditText userPassword = (EditText) findViewById(R.id.inputUserPassword);
         spnUserPosition = (Spinner) findViewById(R.id.spinnerUserPosition);
 
-        httpRequest_addNewUser(userName.getText().toString(),
-                userEmail.getText().toString(),
-                userPassword.getText().toString(),
-                getSelectedPosition(),
-                companyCode());
+        if(userName.getText().length()<2){
+            Toast.makeText(getApplicationContext(), "Name at least 3 characters", Toast.LENGTH_SHORT).show();
+        }else if(!StaticFunction.isValidEmail(userEmail.getText())){
+            Toast.makeText(getApplicationContext(), "Invalid email", Toast.LENGTH_SHORT).show();
+        }else if(userPassword.getText().length() < 6){
+            Toast.makeText(getApplicationContext(), "Password at least 6 characters", Toast.LENGTH_SHORT).show();
+        }else
+            httpRequest_postRegister(userName.getText().toString(),
+                    userEmail.getText().toString(),
+                    userPassword.getText().toString(),
+                    2,
+                    verification,
+                    companyCode());
+    }
 
+    private void sendEmail(String email, String verification) {
+        //Getting content for email
+
+        String subject="Welcome to EZPZ Point of Sale";
+        String message="http://pasienesia.com/pos/api/v1/verification?email="+email+"&verification="+verification;
+
+        //Creating SendMail object
+        SendMail sm = new SendMail(this, email, subject, message, this, AddNewUserActivity.class);
+
+        //Executing sendmail to send email
+        sm.execute();
     }
 
     public void loadSpinnerPosition(){
@@ -89,50 +112,35 @@ public class AddNewUserActivity extends AppCompatActivity {
         return staffList.get(spnUserPosition.getSelectedItemPosition()).getLevel();
     }
 
-    public void httpRequest_addNewUser(String userName, String userEmail, String userPassword, int level, String companyCode){
-        AddNewUser client =  StaticFunction.retrofit().create(AddNewUser.class);
-        Call<Respon> call = client.setVar(userName, userEmail, StaticFunction.md5(userPassword), level, companyCode);
+    public void httpRequest_postRegister(String name, final String email, String password, int level, final String verification, String companyCode){
+        PostRegister client =  StaticFunction.retrofit().create(PostRegister.class);
+        Call<Respon> call = client.setVar(name, email, StaticFunction.md5(password), level, companyCode, verification);
 
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
-                mProgressDialog.dismiss();
                 if(response.isSuccessful()) {
                     Respon respon = response.body();
                     Toast.makeText(getApplicationContext(),
                             respon.getMessage(),
                             Toast.LENGTH_LONG).show();
                     if(respon.getStatusCode().equalsIgnoreCase("200")){
-                        Toast.makeText(getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_SHORT).show();
-                        onBackPressed();
+                        sendEmail(email, verification);
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Respon> call, Throwable t) {
-                mProgressDialog.dismiss();
                 Toast.makeText(getApplicationContext(),
                         getResources().getString(R.string.error_async_text),
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public interface AddNewUser {
-        @FormUrlEncoded
-        @POST("api/v1/add-new-user")
-        Call<Respon> setVar(
-                @Field("name") String userName,
-                @Field("email") String userEmail,
-                @Field("password") String userPassword,
-                @Field("level") int level,
-                @Field("company_code") String companyCode
-        );
     }
 
     @Override

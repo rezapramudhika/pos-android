@@ -17,6 +17,8 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.GetCompany;
+import com.ezpz.pos.api.PostEditCompany;
 import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Company;
@@ -28,9 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 public class SettingActivity extends AppCompatActivity {
     ProgressDialog mProgressDialog;
@@ -283,16 +283,9 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
-    public interface GetCompany {
-        @GET("api/v1/get-company")
-        Call<Respon> setVar(
-                @Query("id") String companyCode
-        );
-    }
-
     public void httpRequest_editCompany(String name, String address, String contact, String discount, String tax, final String companyId){
         mProgressDialog.show();
-        EditCompany client =  StaticFunction.retrofit().create(EditCompany.class);
+        PostEditCompany client =  StaticFunction.retrofit().create(PostEditCompany.class);
         Call<Respon> call = client.setVar(name, address, contact, discount, tax, companyId);
 
         call.enqueue(new Callback<Respon>() {
@@ -326,21 +319,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    public interface EditCompany {
-        @FormUrlEncoded
-        @POST("api/v1/edit-company")
-        Call<Respon> setVar(
-                @Field("name") String name,
-                @Field("address") String address,
-                @Field("contact") String contact,
-                @Field("discount") String discount,
-                @Field("tax") String tax,
-                @Field("id") String companyId
-        );
-    }
-
+    
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

@@ -27,6 +27,12 @@ public class User {
     @SerializedName("company_code")
     @Expose
     private String companyCode;
+    @SerializedName("verification")
+    @Expose
+    private String verification;
+    @SerializedName("confirmed")
+    @Expose
+    private int confirmed;
 
 
 
@@ -76,5 +82,20 @@ public class User {
 
     public void setCompanyCode(String companyCode) {
         this.companyCode = companyCode;
+    }
+
+    public int getConfirmed() {
+        return confirmed;
+    }
+    public void setConfirmed(int confirmed) {
+        this.confirmed = confirmed;
+    }
+
+    public String getVerification() {
+        return verification;
+    }
+
+    public void setVerification(String verification) {
+        this.verification = verification;
     }
 }

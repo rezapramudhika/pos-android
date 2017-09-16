@@ -24,6 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.GetCategoryList;
+import com.ezpz.pos.api.GetCompany;
+import com.ezpz.pos.api.PostCreateMember;
 import com.ezpz.pos.fragment.DashboardFragment;
 import com.ezpz.pos.fragment.ExpenseFragment;
 import com.ezpz.pos.fragment.MemberFragment;
@@ -41,11 +44,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 public class MainPanelActivity extends AppCompatActivity {
 
@@ -496,16 +494,9 @@ public class MainPanelActivity extends AppCompatActivity {
         });
     }
 
-    public interface GetCategoryList {
-        @GET("api/v1/get-category")
-        Call<Respon> setVar(
-                @Query("id") String id
-        );
-    }
-
     public void httpRequest_postAddCustomer(String name, String email, String address, String contact, String companyCode, final Dialog dialog){
         mProgressDialog.show();
-        AddNewCustomer client =  StaticFunction.retrofit().create(AddNewCustomer.class);
+        PostCreateMember client =  StaticFunction.retrofit().create(PostCreateMember.class);
         Call<Respon> call = client.setVar(name, email, address, contact, companyCode);
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -533,19 +524,6 @@ public class MainPanelActivity extends AppCompatActivity {
         });
     }
 
-
-
-    public interface AddNewCustomer {
-        @FormUrlEncoded
-        @POST("api/v1/add-new-member")
-        Call<Respon> setVar(
-                @Field("name") String name,
-                @Field("email") String email,
-                @Field("address") String address,
-                @Field("contact") String contact,
-                @Field("company_code") String companyCode
-        );
-    }
 
     public void httpRequest_getCompany(final String companyCode){
         mProgressDialog.show();
@@ -575,12 +553,5 @@ public class MainPanelActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public interface GetCompany {
-        @GET("api/v1/get-company")
-        Call<Respon> setVar(
-                @Query("id") String companyCode
-        );
     }
 }

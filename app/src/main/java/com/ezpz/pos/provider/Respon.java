@@ -95,6 +95,9 @@ public class Respon {
     @SerializedName("app_version")
     @Expose
     private AppVersion appVersion;
+    @SerializedName("confirmed")
+    @Expose
+    private int confirmed;
 
     public int getTotalPurchase() {
         return totalPurchase;
@@ -317,5 +320,13 @@ public class Respon {
 
     public void setAppVersion(AppVersion appVersion) {
         this.appVersion = appVersion;
+    }
+
+    public int getConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(int confirmed) {
+        this.confirmed = confirmed;
     }
 }

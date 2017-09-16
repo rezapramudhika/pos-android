@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.GetCategoryList;
+import com.ezpz.pos.api.PostCreateProduct;
 import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Category;
@@ -24,11 +26,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 public class AddNewProductActivity extends AppCompatActivity {
 
@@ -165,7 +162,7 @@ public class AddNewProductActivity extends AppCompatActivity {
 
     public void httpRequest_addNewProduct(String productCode, String name, int category, int purchasePrice, int sellingPrice, String description, String companyCode){
         mProgressDialog.show();
-        AddNewProduct client =  StaticFunction.retrofit().create(AddNewProduct.class);
+        PostCreateProduct client =  StaticFunction.retrofit().create(PostCreateProduct.class);
         Call<Respon> call = client.setVar(productCode, name, category, purchasePrice, sellingPrice, description, companyCode);
 
         call.enqueue(new Callback<Respon>() {
@@ -198,20 +195,6 @@ public class AddNewProductActivity extends AppCompatActivity {
         });
     }
 
-    public interface AddNewProduct {
-        @FormUrlEncoded
-        @POST("api/v1/add-new-product")
-        Call<Respon> setVar(
-                @Field("product_code") String productCode,
-                @Field("name") String name,
-                @Field("category") int category,
-                @Field("purchase_price") int purchasePrice,
-                @Field("selling_price") int sellingPrice,
-                @Field("description") String description,
-                @Field("company_code") String companyCode
-        );
-    }
-
     public void httpRequest_getCategoryList(String id){
         mProgressDialog.show();
         GetCategoryList client =  StaticFunction.retrofit().create(GetCategoryList.class);
@@ -229,6 +212,10 @@ public class AddNewProductActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            getResources().getString(R.string.error_async_text),
+                            Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -241,13 +228,6 @@ public class AddNewProductActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public interface GetCategoryList {
-        @GET("api/v1/get-category")
-        Call<Respon> setVar(
-                @Query("id") String id
-        );
     }
 
     @Override

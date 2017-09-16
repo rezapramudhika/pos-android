@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.ezpz.pos.R;
 import com.ezpz.pos.adapter.CategoryAdapter;
+import com.ezpz.pos.api.GetCategory;
+import com.ezpz.pos.api.PostCreateCategory;
 import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Category;
@@ -25,11 +27,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 public class ManageCategory extends AppCompatActivity {
 
@@ -145,7 +142,7 @@ public class ManageCategory extends AppCompatActivity {
 
     public void httpRequest_addCategory(String categoryName, String companyCode){
         mProgressDialog.show();
-        AddCategory client =  StaticFunction.retrofit().create(AddCategory.class);
+        PostCreateCategory client =  StaticFunction.retrofit().create(PostCreateCategory.class);
         Call<Respon> call = client.setVar(categoryName, companyCode);
 
         call.enqueue(new Callback<Respon>() {
@@ -175,23 +172,6 @@ public class ManageCategory extends AppCompatActivity {
         });
     }
 
-
-    public interface AddCategory {
-        @FormUrlEncoded
-        @POST("api/v1/add-category")
-        Call<Respon> setVar(
-                @Field("category_name") String categoryName,
-                @Field("company_code") String companyCode
-        );
-    }
-
-
-    public interface GetCategory {
-        @GET("api/v1/get-category")
-        Call<Respon> setVar(
-                @Query("id") String companyCode
-        );
-    }
 
     @Override
     public void onBackPressed() {
