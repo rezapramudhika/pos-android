@@ -86,7 +86,7 @@
                 android:layout_height="38dp"
                 android:layout_marginTop="2dp"
                 android:orientation="horizontal"
-                android:background="@android:color/white">
+                android:background="@drawable/edit_text_backgroud">
                 <Spinner
                     android:id="@+id/spinnerUserPosition"
                     android:layout_width="match_parent"
