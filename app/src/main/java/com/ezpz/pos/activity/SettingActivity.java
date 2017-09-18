@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.ezpz.pos.R;
 import com.ezpz.pos.api.GetCompany;
 import com.ezpz.pos.api.PostEditCompany;
+import com.ezpz.pos.api.PostUpdatePassword;
 import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Company;
@@ -28,9 +29,6 @@ import com.ezpz.pos.provider.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 
 public class SettingActivity extends AppCompatActivity {
     ProgressDialog mProgressDialog;
@@ -204,7 +202,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void httpRequest_updatePassword(int id, String oldPassword, String newPassword, final Dialog dialog){
-        UpdatePassword client =  StaticFunction.retrofit().create(UpdatePassword.class);
+        PostUpdatePassword client =  StaticFunction.retrofit().create(PostUpdatePassword.class);
         Call<Respon> call = client.setVar(id, StaticFunction.md5(oldPassword), StaticFunction.md5(newPassword));
 
         call.enqueue(new Callback<Respon>() {
@@ -224,7 +222,7 @@ public class SettingActivity extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -237,16 +235,6 @@ public class SettingActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public interface UpdatePassword {
-        @FormUrlEncoded
-        @POST("api/v1/change-password")
-        Call<Respon> setVar(
-                @Field("id") int id,
-                @Field("old_password") String oldPassword,
-                @Field("new_password") String newPassword
-        );
     }
 
     public void httpRequest_getCompany(String companyCode){

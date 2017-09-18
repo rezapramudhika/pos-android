@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.ezpz.pos.R;
 import com.ezpz.pos.activity.MainPanelActivity;
 import com.ezpz.pos.adapter.MemberAdapter;
+import com.ezpz.pos.api.GetMemberList;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Member;
 import com.ezpz.pos.provider.Respon;
@@ -29,8 +30,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 
 public class MemberFragment extends Fragment {
@@ -101,7 +100,7 @@ public class MemberFragment extends Fragment {
 
     public void httpRequest_getMemberList(String companyCode, String inputSearch){
         mProgressDialog.show();
-        GetMember client =  StaticFunction.retrofit().create(GetMember.class);
+        GetMemberList client =  StaticFunction.retrofit().create(GetMemberList.class);
         Call<Respon> call = client.setVar(companyCode, inputSearch);
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -131,14 +130,6 @@ public class MemberFragment extends Fragment {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public interface GetMember {
-        @GET("api/v1/get-member")
-        Call<Respon> setVar(
-                @Query("company_code") String companyCode,
-                @Query("search") String search
-        );
     }
 
 }

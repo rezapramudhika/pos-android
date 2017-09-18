@@ -52,7 +52,12 @@ public class AddNewCompanyActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         spinnerBusinessType = (Spinner) findViewById(R.id.spinnerBusinessType);
-
+        inputName = (EditText) findViewById(R.id.inputBusinessName);
+        inputAddress = (EditText) findViewById(R.id.inputBusinessAddress);
+        inputContact = (EditText) findViewById(R.id.inputBusinessContact);
+        inputName.addTextChangedListener(new StaticFunction.TextWatcher(inputName));
+        inputAddress.addTextChangedListener(new StaticFunction.TextWatcher(inputAddress));
+        inputContact.addTextChangedListener(new StaticFunction.TextWatcher(inputContact));
         user = new Memcache(getApplicationContext()).getUser();
     }
 
@@ -68,14 +73,19 @@ public class AddNewCompanyActivity extends AppCompatActivity {
     }
 
     public void addNewBusinessOnClick(View view){
-        inputName = (EditText) findViewById(R.id.inputBusinessName);
-        inputAddress = (EditText) findViewById(R.id.inputBusinessAddress);
-        inputContact = (EditText) findViewById(R.id.inputBusinessContact);
-        httpRequest_postNewCompany(inputName.getText().toString(),
-                inputAddress.getText().toString(),
-                inputContact.getText().toString(),
-                listBusinessCategory.get(spinnerBusinessType.getSelectedItemPosition()).getId(),
-                user.getId());
+        if(inputName.getText().toString().equalsIgnoreCase("")){
+            inputName.setError("Please input company name");
+        }else if(inputAddress.getText().toString().equalsIgnoreCase("")){
+            inputAddress.setError("Please input company address");
+        }else if(inputContact.getText().toString().equalsIgnoreCase("")){
+            inputContact.setError("Please input contact");
+        }else{
+            httpRequest_postNewCompany(inputName.getText().toString(),
+                    inputAddress.getText().toString(),
+                    inputContact.getText().toString(),
+                    listBusinessCategory.get(spinnerBusinessType.getSelectedItemPosition()).getId(),
+                    user.getId());
+        }
     }
 
     public void httpRequest_postNewCompany(String name, String address, String contact, Integer businessCategory, Integer userId){
@@ -98,7 +108,7 @@ public class AddNewCompanyActivity extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }

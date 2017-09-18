@@ -35,6 +35,7 @@ public class ManageCategory extends AppCompatActivity {
     private List<Category> categoryList;
     private ProgressDialog mProgressDialog;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private EditText inputCategoryName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,28 +55,20 @@ public class ManageCategory extends AppCompatActivity {
         getSupportActionBar().setTitle("Manage Category");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.backbtn);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed(); // Implemented by activity
-            }
-        });
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayoutCategory);
+        inputCategoryName = (EditText) findViewById(R.id.editTextCategoryName);
+        inputCategoryName.addTextChangedListener(new StaticFunction.TextWatcher(inputCategoryName));
+        recycleViewCategory = (RecyclerView) findViewById(R.id.recycleViewCategory);
 
     }
 
     public void loadCategoryList(){
-        recycleViewCategory = (RecyclerView) findViewById(R.id.recycleViewCategory);
         recycleViewCategory.setLayoutManager(new LinearLayoutManager(this));
         recycleViewCategory.setItemAnimator(new DefaultItemAnimator());
-
         categoryList = new ArrayList<>();
-
         adapter = new CategoryAdapter(categoryList, this);
-
         recycleViewCategory.setAdapter(adapter);
-
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayoutCategory);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -89,12 +82,13 @@ public class ManageCategory extends AppCompatActivity {
     }
 
     public void addCategory(View view){
-        EditText inputCategoryName = (EditText) findViewById(R.id.editTextCategoryName);
+        if (inputCategoryName.getText().toString().equalsIgnoreCase("")){
+            inputCategoryName.setError("Please input category name");
+        }else
         httpRequest_addCategory(inputCategoryName.getText().toString(), companyCode());
     }
 
     public void setEmpty(){
-        EditText inputCategoryName = (EditText) findViewById(R.id.editTextCategoryName);
         inputCategoryName.setText("");
     }
 
@@ -126,6 +120,10 @@ public class ManageCategory extends AppCompatActivity {
                     }else{
                         Toast.makeText(getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            getResources().getString(R.string.error_async_text),
+                            Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -157,7 +155,7 @@ public class ManageCategory extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -172,12 +170,17 @@ public class ManageCategory extends AppCompatActivity {
         });
     }
 
-
     @Override
     public void onBackPressed() {
         Bundle bundle = new Bundle();
         bundle.putInt("state", 1);
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }

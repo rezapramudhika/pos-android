@@ -27,10 +27,12 @@ import retrofit2.Response;
 import static com.ezpz.pos.other.StaticFunction.getRandomString;
 
 public class AddNewUserActivity extends AppCompatActivity {
-    ProgressDialog mProgressDialog;
-    Spinner spnUserPosition;
-    List<Staff> staffList;
-    String verification;
+    private ProgressDialog mProgressDialog;
+    private Spinner spnUserPosition;
+    private List<Staff> staffList;
+    private String verification;
+    private EditText userName, userEmail, userPassword, userConfirmPassword;
+
 
 
     @Override
@@ -52,6 +54,16 @@ public class AddNewUserActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         verification = getRandomString(30);
+
+        userName = (EditText) findViewById(R.id.inputUserName);
+        userEmail = (EditText) findViewById(R.id.inputUserEmail);
+        userPassword = (EditText) findViewById(R.id.inputUserPassword);
+        userConfirmPassword = (EditText) findViewById(R.id.inputUserPasswordConfirm);
+        userEmail.addTextChangedListener(new StaticFunction.TextWatcher(userEmail));
+        userPassword.addTextChangedListener(new StaticFunction.TextWatcher(userPassword));
+        userConfirmPassword.addTextChangedListener(new StaticFunction.TextWatcher(userConfirmPassword));
+        userName.addTextChangedListener(new StaticFunction.TextWatcher(userName));
+        spnUserPosition = (Spinner) findViewById(R.id.spinnerUserPosition);
     }
 
     public String companyCode(){
@@ -61,24 +73,22 @@ public class AddNewUserActivity extends AppCompatActivity {
     }
 
     public void addUser(View view){
-        EditText userName = (EditText) findViewById(R.id.inputUserName);
-        EditText userEmail = (EditText) findViewById(R.id.inputUserEmail);
-        EditText userPassword = (EditText) findViewById(R.id.inputUserPassword);
-        spnUserPosition = (Spinner) findViewById(R.id.spinnerUserPosition);
-
-        if(userName.getText().length()<2){
-            Toast.makeText(getApplicationContext(), "Name at least 3 characters", Toast.LENGTH_SHORT).show();
+        if(userName.getText().length()<3){
+            userName.setError("Name at least 3 characters");
         }else if(!StaticFunction.isValidEmail(userEmail.getText())){
-            Toast.makeText(getApplicationContext(), "Invalid email", Toast.LENGTH_SHORT).show();
+            userEmail.setError("Please input a valid email");
         }else if(userPassword.getText().length() < 6){
-            Toast.makeText(getApplicationContext(), "Password at least 6 characters", Toast.LENGTH_SHORT).show();
-        }else
+            userPassword.setError("Password at least 6 characters");
+        }else if(userConfirmPassword.getText().toString()!=userPassword.getText().toString()){
+            userConfirmPassword.setError("Password not match");
+        }else{
             httpRequest_postRegister(userName.getText().toString(),
                     userEmail.getText().toString(),
                     userPassword.getText().toString(),
                     2,
                     verification,
                     companyCode());
+        }
     }
 
     private void sendEmail(String email, String verification) {

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.ezpz.pos.BuildConfig;
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.GetAppVersion;
 import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Respon;
@@ -22,7 +23,6 @@ import com.ezpz.pos.provider.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.GET;
 
 public class SplashScreenActivity extends AppCompatActivity {
     private Handler myHandler;
@@ -106,12 +106,5 @@ public class SplashScreenActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public interface GetAppVersion {
-        @GET("api/v1/get-app-version")
-        Call<Respon> setVar(
-
-        );
     }
 }

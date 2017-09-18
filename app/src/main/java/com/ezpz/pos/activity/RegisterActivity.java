@@ -23,7 +23,7 @@ import static com.ezpz.pos.other.StaticFunction.getRandomString;
 
 public class RegisterActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
-    private EditText emailInput, passwordInput, nameInput;
+    private EditText emailInput, passwordInput, nameInput, confirmPasswordInput;
     private String verification;
 
     @Override
@@ -42,24 +42,32 @@ public class RegisterActivity extends AppCompatActivity {
         nameInput = (EditText) findViewById(R.id.inputRegisterName);
         emailInput = (EditText) findViewById(R.id.inputRegisterEmail);
         passwordInput = (EditText) findViewById(R.id.inputRegisterPassword);
+        confirmPasswordInput = (EditText) findViewById(R.id.inputRegisterPasswordConfirm);
+        nameInput.addTextChangedListener(new StaticFunction.TextWatcher(nameInput));
+        emailInput.addTextChangedListener(new StaticFunction.TextWatcher(emailInput));
+        passwordInput.addTextChangedListener(new StaticFunction.TextWatcher(passwordInput));
+        confirmPasswordInput.addTextChangedListener(new StaticFunction.TextWatcher(confirmPasswordInput));
         verification = getRandomString(30);
 
     }
 
     public void register(View view){
-        if(nameInput.getText().length()<2){
-            Toast.makeText(getApplicationContext(), "Name at least 3 characters", Toast.LENGTH_SHORT).show();
+        if(nameInput.getText().length()<3){
+            nameInput.setError("Name at least 3 characters");
         }else if(!StaticFunction.isValidEmail(emailInput.getText())){
-            Toast.makeText(getApplicationContext(), "Invalid email", Toast.LENGTH_SHORT).show();
+            nameInput.setError("Please input a valid email");
         }else if(passwordInput.getText().length() < 6){
-            Toast.makeText(getApplicationContext(), "Password at least 6 characters", Toast.LENGTH_SHORT).show();
-        }else
+            passwordInput.setError( "Password at least 6 characters");
+        }else if(confirmPasswordInput.getText().toString()!=passwordInput.getText().toString()){
+            confirmPasswordInput.setError("Password not match");
+        }else{
             httpRequest_postRegister(nameInput.getText().toString(),
                     emailInput.getText().toString(),
                     passwordInput.getText().toString(),
                     1,
                     "",
                     verification);
+        }
     }
 
     private void sendEmail() {

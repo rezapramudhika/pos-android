@@ -158,25 +158,30 @@ public class EditProductActivity extends AppCompatActivity {
     }
 
 
-    public void getProductInformation(String productCode, String productName, String purchasePrice, String sellingPrice, String description, String categoryName){
+    public void getProductInformation(String productCode, String productName, String purchasePrice, String sellingPrice, String description, String categoryName, String picture){
         final Bundle bundle = getIntent().getExtras();
         final int productId = bundle.getInt("productId");
         final String companyCode = bundle.getString("companyCode");
         setCategoryName(categoryName);
-
         final EditText editProductCode= (EditText) findViewById(R.id.editProductCode);
+        editProductCode.addTextChangedListener(new StaticFunction.TextWatcher(editProductCode));
         final EditText editProductName = (EditText) findViewById(R.id.editProductName);
+        editProductName.addTextChangedListener(new StaticFunction.TextWatcher(editProductName));
         final EditText editPurchasePrice = (EditText) findViewById(R.id.editPurchasePrice);
+        editPurchasePrice.addTextChangedListener(new StaticFunction.TextWatcher(editPurchasePrice));
         final EditText editSellingPrice = (EditText) findViewById(R.id.editSellingPrice);
+        editSellingPrice.addTextChangedListener(new StaticFunction.TextWatcher(editSellingPrice));
         final EditText editDescription = (EditText) findViewById(R.id.editDescription);
+        editDescription.addTextChangedListener(new StaticFunction.TextWatcher(editDescription));
         final Spinner spnCategory = (Spinner) findViewById(R.id.spinnerEditProductCategory);
         Button btnUpdateInformation = (Button) findViewById(R.id.btnEditProductInformation);
-        imageProfile = (ImageView) findViewById(R.id.editProductPicture);
 
+        imageProfile = (ImageView) findViewById(R.id.editProductPicture);
+        Glide.with(getApplicationContext()).load(StaticFunction.imageUrl(getUrl_profile())).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageProfile);
         imageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imageProfile.setImageBitmap(null);
+                //imageProfile.setImageBitmap(null);
                 Crop.pickImage(EditProductActivity.this);
             }
         });
@@ -196,17 +201,27 @@ public class EditProductActivity extends AppCompatActivity {
         btnUpdateInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                httpRequest_updateProductInformation(
-                        productId,
-                        editProductCode.getText().toString(),
-                        editProductName.getText().toString(),
-                        categoryList.get(spnCategory.getSelectedItemPosition()).getId(),
-                        Integer.valueOf(editPurchasePrice.getText().toString()),
-                        Integer.valueOf(editSellingPrice.getText().toString()),
-                        editDescription.getText().toString(),
-                        companyCode,
-                        getUrl_profile()
-                );
+                if(editProductCode.getText().toString().equalsIgnoreCase("")){
+                    editProductCode.setError("Please input product code");
+                }else if(editProductName.getText().toString().equalsIgnoreCase("")){
+                    editProductName.setError("Please input product name");
+                }else if(editPurchasePrice.getText().toString().equalsIgnoreCase("")){
+                    editPurchasePrice.setError("Please input purchase price");
+                }else if(editSellingPrice.getText().toString().equalsIgnoreCase("")){
+                    editSellingPrice.setError("Please input selling price");
+                }else {
+                    httpRequest_updateProductInformation(
+                            productId,
+                            editProductCode.getText().toString(),
+                            editProductName.getText().toString(),
+                            categoryList.get(spnCategory.getSelectedItemPosition()).getId(),
+                            Integer.valueOf(editPurchasePrice.getText().toString()),
+                            Integer.valueOf(editSellingPrice.getText().toString()),
+                            editDescription.getText().toString(),
+                            companyCode,
+                            getUrl_profile()
+                    );
+                }
             }
         });
     }
@@ -318,9 +333,13 @@ public class EditProductActivity extends AppCompatActivity {
         btnUpdateStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final int totalStock = Integer.valueOf(productInStock.getText().toString()) + Integer.valueOf(editProductStock.getText().toString());
-                httpRequest_updateProductStock(productId, totalStock);
-                editProductStock.setText("");
+                if(editProductStock.getText().toString().equalsIgnoreCase("")){
+
+                }else{
+                    final int totalStock = Integer.valueOf(productInStock.getText().toString()) + Integer.valueOf(editProductStock.getText().toString());
+                    httpRequest_updateProductStock(productId, totalStock);
+                    editProductStock.setText("");
+                }
            }
         });
     }
@@ -345,7 +364,11 @@ public class EditProductActivity extends AppCompatActivity {
         btnUpdateDisc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                httpRequest_updateProductDiscount(productId, Integer.valueOf(editProductDisc.getText().toString()));
+                if(editProductDisc.getText().toString().equalsIgnoreCase("")){
+
+                }else {
+                    httpRequest_updateProductDiscount(productId, Integer.valueOf(editProductDisc.getText().toString()));
+                }
             }
         });
     }
@@ -518,8 +541,10 @@ public class EditProductActivity extends AppCompatActivity {
                                     String.valueOf(product.getPurchasePrice()),
                                     String.valueOf(product.getSellingPrice()),
                                     product.getDescription(),
-                                    product.getCategoryName()
+                                    product.getCategoryName(),
+                                    product.getPicture()
                             );
+                            setUrl_profile(respon.getProductDetail().getPicture());
                         }else if(index==1){
                             getProductStock(String.valueOf(product.getStock()));
                         }else if(index==2){

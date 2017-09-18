@@ -41,7 +41,8 @@ public class LoginActivity extends AppCompatActivity {
 
         emailInput = (EditText) findViewById(R.id.inputLoginEmail);
         passwordInput = (EditText) findViewById(R.id.inputLoginPassword);
-
+        emailInput.addTextChangedListener(new StaticFunction.TextWatcher(emailInput));
+        passwordInput.addTextChangedListener(new StaticFunction.TextWatcher(passwordInput));
     }
 
     public void login(View view){
@@ -118,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }

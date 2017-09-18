@@ -431,9 +431,13 @@ public class MainPanelActivity extends AppCompatActivity {
                     AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainPanelActivity.this);
                     View mView = getLayoutInflater().inflate(R.layout.dialog_add_new_customer, null);
                     final EditText inputCustomerName = (EditText) mView.findViewById(R.id.inputCustomerName);
+                    inputCustomerName.addTextChangedListener(new StaticFunction.TextWatcher(inputCustomerName));
                     final EditText inputCustomerEmail = (EditText) mView.findViewById(R.id.inputCustomerEmail);
+                    inputCustomerEmail.addTextChangedListener(new StaticFunction.TextWatcher(inputCustomerEmail));
                     final EditText inputCustomerAddress = (EditText) mView.findViewById(R.id.inputCustomerAddress);
+                    inputCustomerAddress.addTextChangedListener(new StaticFunction.TextWatcher(inputCustomerAddress));
                     final EditText inputCustomerContact = (EditText) mView.findViewById(R.id.inputCustomerContact);
+                    inputCustomerContact.addTextChangedListener(new StaticFunction.TextWatcher(inputCustomerContact));
                     Button btnAddCustomer = (Button) mView.findViewById(R.id.btnAddNewCustomer);
                     mBuilder.setView(mView);
                     final AlertDialog dialog = mBuilder.create();
@@ -442,6 +446,15 @@ public class MainPanelActivity extends AppCompatActivity {
                     btnAddCustomer.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            if(inputCustomerName.getText().toString().equalsIgnoreCase("")){
+                                inputCustomerName.setError("Please input customer name");
+                            }else if(!StaticFunction.isValidEmail(inputCustomerEmail.getText())){
+                                inputCustomerEmail.setError("Please input a valid email");
+                            }else if(inputCustomerAddress.getText().toString().equalsIgnoreCase("")){
+                                inputCustomerAddress.setError("Please input customer address");
+                            }else if(inputCustomerContact.getText().toString().equalsIgnoreCase("")){
+                                inputCustomerContact.setError("Please input customer contact");
+                            }else
                             httpRequest_postAddCustomer(inputCustomerName.getText().toString(),
                                     inputCustomerEmail.getText().toString(),
                                     inputCustomerAddress.getText().toString(),
@@ -481,6 +494,10 @@ public class MainPanelActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            getResources().getString(R.string.error_async_text),
+                            Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -510,7 +527,7 @@ public class MainPanelActivity extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -541,6 +558,10 @@ public class MainPanelActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            getResources().getString(R.string.error_async_text),
+                            Toast.LENGTH_LONG).show();
                 }
 
             }

@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.ezpz.pos.R;
 import com.ezpz.pos.api.GetCategoryList;
 import com.ezpz.pos.api.PostCreateProduct;
-import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Category;
 import com.ezpz.pos.provider.Respon;
@@ -32,6 +31,7 @@ public class AddNewProductActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     private List<Category> categoryList;
     private Spinner spnCategory;
+    private EditText inputProductCode, inputProductName, inputPurchasePrice, inputSellingPrice, inputDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,18 @@ public class AddNewProductActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Add Product");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        spnCategory = (Spinner) findViewById(R.id.spinnerAddProductCategory);
+        inputProductCode= (EditText) findViewById(R.id.inputProductCode);
+        inputProductName = (EditText) findViewById(R.id.inputProductName);
+        inputPurchasePrice = (EditText) findViewById(R.id.inputPurchasePrice);
+        inputSellingPrice = (EditText) findViewById(R.id.inputSellingPrice);
+        inputDescription = (EditText) findViewById(R.id.inputDescription);
+        inputProductCode.addTextChangedListener(new StaticFunction.TextWatcher(inputProductCode));
+        inputProductName.addTextChangedListener(new StaticFunction.TextWatcher(inputProductName));
+        inputPurchasePrice.addTextChangedListener(new StaticFunction.TextWatcher(inputPurchasePrice));
+        inputSellingPrice.addTextChangedListener(new StaticFunction.TextWatcher(inputSellingPrice));
+        inputDescription.addTextChangedListener(new StaticFunction.TextWatcher(inputDescription));
     }
 
     public String companyCode(){
@@ -61,7 +73,6 @@ public class AddNewProductActivity extends AppCompatActivity {
     }
 
     private void populatingSpinnerCategory(List<Category> thisCategoryList){
-        spnCategory = (Spinner) findViewById(R.id.spinnerAddProductCategory);
         categoryList = thisCategoryList;
         if (categoryList.size()==0){
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -96,41 +107,6 @@ public class AddNewProductActivity extends AppCompatActivity {
         }
     }
 
-    public void loadSpinnerCategory(){
-        spnCategory = (Spinner) findViewById(R.id.spinnerAddProductCategory);
-        categoryList = new Memcache(getApplicationContext()).getProductCategory();
-        if (categoryList.size()==0){
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("You haven't set product category!");
-            alertDialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            alertDialogBuilder
-                    .setCancelable(false)
-                    .setPositiveButton("Add Category",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // if this button is clicked, close
-                            // current activity
-                            Bundle bundle = new Bundle();
-                            bundle.putString("companyCode", companyCode());
-                            dialog.dismiss();
-                            startActivity(new Intent(AddNewProductActivity.this, ManageCategory.class).putExtras(bundle));
-                            finish();
-                        }
-                    });
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
-        }else{
-            final String[] categoryItems = new String[categoryList.size()];
-
-            int key = 0;
-            for(Category category : categoryList) {
-                categoryItems[key] = category.getCategoryName();
-                key++;
-            }
-            ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, categoryItems);
-            spnCategory.setAdapter(categoryAdapter);
-        }
-    }
 
     public Integer getSelectedCategory(){
 
@@ -138,25 +114,24 @@ public class AddNewProductActivity extends AppCompatActivity {
     }
 
     public void addNewProduct(View view){
-        EditText inputProductCode= (EditText) findViewById(R.id.inputProductCode);
-        EditText inputProductName = (EditText) findViewById(R.id.inputProductName);
-        EditText inputPurchasePrice = (EditText) findViewById(R.id.inputPurchasePrice);
-        EditText inputSellingPrice = (EditText) findViewById(R.id.inputSellingPrice);
-        EditText inputDescription = (EditText) findViewById(R.id.inputDescription);
-        final Spinner spnCategory = (Spinner) findViewById(R.id.spinnerAddProductCategory);
-
-        //Toast.makeText(getApplicationContext(),""+categoryList.get(spnCategory.getSelectedItemPosition()).getId(), Toast.LENGTH_LONG).show();
-
-
-        httpRequest_addNewProduct(inputProductCode.getText().toString(),
-                inputProductName.getText().toString(),
-                getSelectedCategory(),
-                Integer.valueOf(inputPurchasePrice.getText().toString()),
-                Integer.valueOf(inputSellingPrice.getText().toString()),
-                inputDescription.getText().toString(),
-                companyCode()
-                );
-
+        if(inputProductCode.getText().toString().equalsIgnoreCase("")){
+            inputProductCode.setError("Please input product code");
+        }else if(inputProductName.getText().toString().equalsIgnoreCase("")){
+            inputProductName.setError("Please input product name");
+        }else if(inputPurchasePrice.getText().toString().equalsIgnoreCase("")){
+            inputPurchasePrice.setError("Please input purchase price");
+        }else if(inputSellingPrice.getText().toString().equalsIgnoreCase("")){
+            inputSellingPrice.setError("Please input selling price");
+        }else{
+            httpRequest_addNewProduct(inputProductCode.getText().toString(),
+                    inputProductName.getText().toString(),
+                    getSelectedCategory(),
+                    Integer.valueOf(inputPurchasePrice.getText().toString()),
+                    Integer.valueOf(inputSellingPrice.getText().toString()),
+                    inputDescription.getText().toString(),
+                    companyCode()
+            );
+        }
     }
 
 

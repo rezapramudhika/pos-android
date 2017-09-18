@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.GetCashierData;
 import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Respon;
@@ -17,8 +18,6 @@ import com.ezpz.pos.provider.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public class LoadMemcachedCashier extends AppCompatActivity {
     private Handler myHandler;
@@ -56,6 +55,10 @@ public class LoadMemcachedCashier extends AppCompatActivity {
                     }else{
                         Toast.makeText(getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            getResources().getString(R.string.error_async_text),
+                            Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -67,12 +70,5 @@ public class LoadMemcachedCashier extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public interface GetCashierData {
-        @GET("api/v1/get-cashier-data")
-        Call<Respon> setVar(
-                @Query("company_code") String companyCode
-        );
     }
 }

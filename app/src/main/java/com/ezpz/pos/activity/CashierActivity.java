@@ -34,6 +34,10 @@ import android.widget.Toast;
 import com.ezpz.pos.R;
 import com.ezpz.pos.adapter.BillAdapter;
 import com.ezpz.pos.adapter.CashierProductAdapter;
+import com.ezpz.pos.api.GetMemberList;
+import com.ezpz.pos.api.GetProductList;
+import com.ezpz.pos.api.PostCreateMember;
+import com.ezpz.pos.api.PostUpdatePassword;
 import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.printer.BillModel;
@@ -60,9 +64,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 public class CashierActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
@@ -495,9 +497,13 @@ public class CashierActivity extends AppCompatActivity {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(CashierActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.dialog_add_new_customer, null);
         final EditText inputCustomerName = (EditText) mView.findViewById(R.id.inputCustomerName);
+        inputCustomerName.addTextChangedListener(new StaticFunction.TextWatcher(inputCustomerName));
         final EditText inputCustomerEmail = (EditText) mView.findViewById(R.id.inputCustomerEmail);
+        inputCustomerEmail.addTextChangedListener(new StaticFunction.TextWatcher(inputCustomerEmail));
         final EditText inputCustomerAddress = (EditText) mView.findViewById(R.id.inputCustomerAddress);
+        inputCustomerAddress.addTextChangedListener(new StaticFunction.TextWatcher(inputCustomerAddress));
         final EditText inputCustomerContact = (EditText) mView.findViewById(R.id.inputCustomerContact);
+        inputCustomerContact.addTextChangedListener(new StaticFunction.TextWatcher(inputCustomerContact));
         Button btnAddCustomer = (Button) mView.findViewById(R.id.btnAddNewCustomer);
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
@@ -506,13 +512,22 @@ public class CashierActivity extends AppCompatActivity {
         btnAddCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                httpRequest_postAddCustomer(inputCustomerName.getText().toString(),
-                        inputCustomerEmail.getText().toString(),
-                        inputCustomerAddress.getText().toString(),
-                        inputCustomerContact.getText().toString(),
-                        companyCode(),
-                        dialog
-                );
+                if(inputCustomerName.getText().toString().equalsIgnoreCase("")){
+                    inputCustomerName.setError("Please input customer name");
+                }else if(!StaticFunction.isValidEmail(inputCustomerEmail.getText())){
+                    inputCustomerEmail.setError("Please input a valid email");
+                }else if(inputCustomerAddress.getText().toString().equalsIgnoreCase("")){
+                    inputCustomerAddress.setError("Please input customer address");
+                }else if(inputCustomerContact.getText().toString().equalsIgnoreCase("")){
+                    inputCustomerContact.setError("Please input customer contact");
+                }else
+                    httpRequest_postAddCustomer(inputCustomerName.getText().toString(),
+                            inputCustomerEmail.getText().toString(),
+                            inputCustomerAddress.getText().toString(),
+                            inputCustomerContact.getText().toString(),
+                            companyCode(),
+                            dialog
+                    );
             }
         });
     }
@@ -874,7 +889,7 @@ public class CashierActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (inputCash.getText().toString().isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Input cash!", Toast.LENGTH_SHORT).show();
+                    inputCash.setError("Please input cash");
                 }else{
                     int change = Integer.valueOf(inputCash.getText().toString())-Integer.valueOf(inputGrandTotal.getText().toString());
                     inputChange.setText(String.valueOf(change));
@@ -968,17 +983,10 @@ public class CashierActivity extends AppCompatActivity {
         });
     }
 
-    public interface GetProductList {
-        @GET("api/v1/get-product")
-        Call<Respon> setVar(
-                @Query("company_code") String companyCode,
-                @Query("category") String category
-        );
-    }
 
     public void httpRequest_postAddCustomer(String name, String email, String address, String contact, String companyCode, final Dialog dialog){
         mProgressDialog.show();
-        AddNewCustomer client =  StaticFunction.retrofit().create(AddNewCustomer.class);
+        PostCreateMember client =  StaticFunction.retrofit().create(PostCreateMember.class);
         Call<Respon> call = client.setVar(name, email, address, contact, companyCode);
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -992,7 +1000,7 @@ public class CashierActivity extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -1006,23 +1014,9 @@ public class CashierActivity extends AppCompatActivity {
         });
     }
 
-
-
-    public interface AddNewCustomer {
-        @FormUrlEncoded
-        @POST("api/v1/add-new-member")
-        Call<Respon> setVar(
-                @Field("name") String name,
-                @Field("email") String email,
-                @Field("address") String address,
-                @Field("contact") String contact,
-                @Field("company_code") String companyCode
-        );
-    }
-
     public void httpRequest_getMemberList(String companyCode, String inputSearch){
         mProgressDialog.show();
-        GetMember client =  StaticFunction.retrofit().create(GetMember.class);
+        GetMemberList client =  StaticFunction.retrofit().create(GetMemberList.class);
         Call<Respon> call = client.setVar(companyCode, inputSearch);
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -1050,14 +1044,6 @@ public class CashierActivity extends AppCompatActivity {
         });
     }
 
-    public interface GetMember {
-        @GET("api/v1/get-member")
-        Call<Respon> setVar(
-                @Query("company_code") String companyCode,
-                @Query("search") String search
-        );
-    }
-
     public void httpRequest_postAddSales(int idUser, String memberCode, int quantity, int total, String disc, String tax, int grandTotal, String companyCode){
         AddSales client =  StaticFunction.retrofit().create(AddSales.class);
         Call<Respon> call = client.setVar(idUser, memberCode, quantity, total, disc, tax, grandTotal, companyCode);
@@ -1073,7 +1059,7 @@ public class CashierActivity extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -1119,7 +1105,7 @@ public class CashierActivity extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -1374,7 +1360,7 @@ public class CashierActivity extends AppCompatActivity {
     }
 
     public void httpRequest_updatePassword(int id, String oldPassword, String newPassword, final Dialog dialog){
-        UpdatePassword client =  StaticFunction.retrofit().create(UpdatePassword.class);
+        PostUpdatePassword client =  StaticFunction.retrofit().create(PostUpdatePassword.class);
         Call<Respon> call = client.setVar(id, StaticFunction.md5(oldPassword), StaticFunction.md5(newPassword));
 
         call.enqueue(new Callback<Respon>() {
@@ -1394,7 +1380,7 @@ public class CashierActivity extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -1407,16 +1393,6 @@ public class CashierActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public interface UpdatePassword {
-        @FormUrlEncoded
-        @POST("api/v1/change-password")
-        Call<Respon> setVar(
-                @Field("id") int id,
-                @Field("old_password") String oldPassword,
-                @Field("new_password") String newPassword
-        );
     }
 
     public void testPrint(Context context){
