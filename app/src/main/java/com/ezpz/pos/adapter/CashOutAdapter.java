@@ -18,6 +18,7 @@ import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.CashOut;
 import com.ezpz.pos.provider.Respon;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import retrofit2.Call;
@@ -76,7 +77,7 @@ public class CashOutAdapter extends RecyclerView.Adapter<CashOutAdapter.MyHolder
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
         final CashOut cashOut = cashOutList.get(position);
-        holder.txtTimestamp.setText(cashOut.getCreated_at());
+        holder.txtTimestamp.setText(getDate(cashOut.getCreated_at()));
         holder.txtTotalCashOut.setText(StaticFunction.moneyFormat(Double.valueOf(cashOut.getTotalCashOut())));
         holder.txtDescription.setText(cashOut.getDescription());
         holder.layoutCashOutItem.setOnLongClickListener(new View.OnLongClickListener() {
@@ -104,6 +105,21 @@ public class CashOutAdapter extends RecyclerView.Adapter<CashOutAdapter.MyHolder
     @Override
     public int getItemCount() {
         return cashOutList.size();
+    }
+
+    public String getDate(String inputDate){
+        String curDate = inputDate;
+        SimpleDateFormat curDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat desiredDateFormat = new SimpleDateFormat("MMM dd, yyyy");
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        String output = "";
+        try {
+            cal.setTime(curDateFormat.parse(curDate));
+            String desiredDate = desiredDateFormat.format(cal.getTime());
+            output = desiredDate;
+        } catch (Exception e) {}
+
+        return output;
     }
 
     public void httpRequest_postDeleteCashOut(int id, int type, final String companyCode){
