@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
             nameInput.setError("Please input a valid email");
         }else if(passwordInput.getText().length() < 6){
             passwordInput.setError( "Password at least 6 characters");
-        }else if(confirmPasswordInput.getText().toString()!=passwordInput.getText().toString()){
+        }else if(!confirmPasswordInput.getText().toString().equals(passwordInput.getText().toString())){
             confirmPasswordInput.setError("Password not match");
         }else{
             httpRequest_postRegister(nameInput.getText().toString(),

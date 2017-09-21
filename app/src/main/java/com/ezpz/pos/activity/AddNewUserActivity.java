@@ -79,7 +79,7 @@ public class AddNewUserActivity extends AppCompatActivity {
             userEmail.setError("Please input a valid email");
         }else if(userPassword.getText().length() < 6){
             userPassword.setError("Password at least 6 characters");
-        }else if(userConfirmPassword.getText().toString()!=userPassword.getText().toString()){
+        }else if(!userConfirmPassword.getText().toString().equals(userPassword.getText().toString())){
             userConfirmPassword.setError("Password not match");
         }else{
             httpRequest_postRegister(userName.getText().toString(),
