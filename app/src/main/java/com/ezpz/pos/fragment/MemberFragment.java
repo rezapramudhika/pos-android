@@ -101,7 +101,7 @@ public class MemberFragment extends Fragment {
     public void httpRequest_getMemberList(String companyCode, String inputSearch){
         mProgressDialog.show();
         GetMemberList client =  StaticFunction.retrofit().create(GetMemberList.class);
-        Call<Respon> call = client.setVar(companyCode, inputSearch);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()), companyCode, inputSearch);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {

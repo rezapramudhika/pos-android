@@ -162,7 +162,7 @@ public class CashInFragment extends Fragment {
     public void httpRequest_postAddCashIn(int totalCash, String description, final String companyCode, int type, final Dialog dialog){
         mProgressDialog.show();
         PostCreateCashIn client =  StaticFunction.retrofit().create(PostCreateCashIn.class);
-        Call<Respon> call = client.setVar(totalCash, description, companyCode, type);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()), totalCash, description, companyCode, type);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {

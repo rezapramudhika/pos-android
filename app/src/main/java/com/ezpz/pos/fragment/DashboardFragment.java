@@ -109,7 +109,7 @@ public class DashboardFragment extends Fragment {
     public void httpRequest_getDashboard(String companyCode){
         mProgressDialog.show();
         GetDashboard client =  StaticFunction.retrofit().create(GetDashboard.class);
-        Call<Respon> call = client.setVar(companyCode);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()),companyCode);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {

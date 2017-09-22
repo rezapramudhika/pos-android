@@ -16,6 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.GetMemberDetail;
+import com.ezpz.pos.api.PostDeleteMember;
+import com.ezpz.pos.api.PostEditCustomer;
 import com.ezpz.pos.fragment.MemberFragment;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Member;
@@ -27,11 +30,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * Created by RezaPramudhika on 8/28/2017.
@@ -177,8 +175,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
     public void httpRequest_postEditCustomer(int id, String name, String email, String address, String contact, String companyCode, final Dialog dialog){
         //mProgressDialog.show();
-        EditCustomer client =  StaticFunction.retrofit().create(EditCustomer.class);
-        Call<Respon> call = client.setVar(id, name, email, address, contact, companyCode);
+        PostEditCustomer client =  StaticFunction.retrofit().create(PostEditCustomer.class);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()),id, name, email, address, contact, companyCode);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -191,7 +189,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
                     }
                 }else{
                     Toast.makeText(thisActivity.getApplicationContext(),
-                            "Server offline",
+                            thisActivity.getApplicationContext().getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -205,24 +203,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         });
     }
 
-
-
-    public interface EditCustomer {
-        @FormUrlEncoded
-        @POST("api/v1/edit-member")
-        Call<Respon> setVar(
-                @Field("id") int id,
-                @Field("name") String name,
-                @Field("email") String email,
-                @Field("address") String address,
-                @Field("contact") String contact,
-                @Field("company_code") String companyCode
-        );
-    }
-
     public void httpRequest_getSelectedMember(int id, final String memberCode, final String memberName) {
-        GetSelectedMember client = StaticFunction.retrofit().create(GetSelectedMember.class);
-        Call<Respon> call = client.setVar(id, memberCode);
+        GetMemberDetail client = StaticFunction.retrofit().create(GetMemberDetail.class);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()),id, memberCode);
 
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -256,17 +239,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         });
     }
 
-    public interface GetSelectedMember {
-        @GET("api/v1/get-selected-member")
-        Call<Respon> setVar(
-                @Query("id") int id,
-                @Query("member_code") String memberCode
-        );
-    }
-
     public void httpRequest_deleteMember(int id, final String companyCode, final DialogInterface dialog){
-        DeleteMember client =  StaticFunction.retrofit().create(DeleteMember.class);
-        Call<Respon> call = client.setVar(id);
+        PostDeleteMember client =  StaticFunction.retrofit().create(PostDeleteMember.class);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()),id);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -280,7 +255,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
                         Toast.makeText(thisActivity.getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(thisActivity.getApplicationContext(),
-                            "Server offline",
+                            thisActivity.getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -293,13 +268,4 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             }
         });
     }
-
-    public interface DeleteMember {
-        @FormUrlEncoded
-        @POST("api/v1/delete-member")
-        Call<Respon> setVar(
-                @Field("id") int id
-        );
-    }
-
 }

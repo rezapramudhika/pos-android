@@ -28,6 +28,7 @@ import com.ezpz.pos.api.PostDeleteProduct;
 import com.ezpz.pos.api.PostUpdateProductDiscount;
 import com.ezpz.pos.api.PostUpdateProductInformation;
 import com.ezpz.pos.api.PostUpdateProductStock;
+import com.ezpz.pos.api.PostUploadImage;
 import com.ezpz.pos.other.FileUtils;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Category;
@@ -45,9 +46,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Multipart;
-import retrofit2.http.POST;
-import retrofit2.http.Part;
 
 public class EditProductActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
@@ -262,8 +260,8 @@ public class EditProductActivity extends AppCompatActivity {
         MultipartBody.Part photoPart = MultipartBody.Part.createFormData("photo", file.getName(), photoBody);
 
         mProgressDialog.show();
-        UploadImage client = StaticFunction.retrofit().create(UploadImage.class);
-        Call<Respon> call = client.setVar(idUser, photoPart);
+        PostUploadImage client = StaticFunction.retrofit().create(PostUploadImage.class);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), idUser, photoPart);
 
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -287,8 +285,10 @@ public class EditProductActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Respon> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"GAGAL", Toast.LENGTH_LONG).show();
                 mProgressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),
+                        getResources().getString(R.string.error_async_text),
+                        Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -301,14 +301,6 @@ public class EditProductActivity extends AppCompatActivity {
         String encImage = Base64.encodeToString(bytes, Base64.DEFAULT);
 
         return encImage;
-    }
-
-    public interface UploadImage{
-        @Multipart
-        @POST("api/v1/upload-image")
-        Call<Respon> setVar(
-                @Part("id_product") RequestBody idUser,
-                @Part MultipartBody.Part photo);
     }
 
     private int getSpinnerSelectedItem(Spinner spinner, String myString){
@@ -388,7 +380,7 @@ public class EditProductActivity extends AppCompatActivity {
 
     public void httpRequest_updateProductInformation(final int productId, String productCode, String name, int category, int purchasePrice, int sellingPrice, String description, String companyCode, String url_profile){
         PostUpdateProductInformation client =  StaticFunction.retrofit().create(PostUpdateProductInformation.class);
-        Call<Respon> call = client.setVar(productId, productCode, name, category, purchasePrice, sellingPrice, description, companyCode, url_profile);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), productId, productCode, name, category, purchasePrice, sellingPrice, description, companyCode, url_profile);
 
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -422,7 +414,7 @@ public class EditProductActivity extends AppCompatActivity {
     public void httpRequest_updateProductStock(final int productId, int stock){
         mProgressDialog.show();
         PostUpdateProductStock client =  StaticFunction.retrofit().create(PostUpdateProductStock.class);
-        Call<Respon> call = client.setVar(productId, stock);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), productId, stock);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -456,7 +448,7 @@ public class EditProductActivity extends AppCompatActivity {
     public void httpRequest_updateProductDiscount(final int productId, int disc){
         mProgressDialog.show();
         PostUpdateProductDiscount client =  StaticFunction.retrofit().create(PostUpdateProductDiscount.class);
-        Call<Respon> call = client.setVar(productId, disc);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), productId, disc);
 
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -491,7 +483,7 @@ public class EditProductActivity extends AppCompatActivity {
     public void httpRequest_deleteProduct(int productId){
         mProgressDialog.show();
         PostDeleteProduct client =  StaticFunction.retrofit().create(PostDeleteProduct.class);
-        Call<Respon> call = client.setVar(productId);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), productId);
 
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -526,7 +518,7 @@ public class EditProductActivity extends AppCompatActivity {
     public void httpRequest_getProductInformation(int id, final int index){
         mProgressDialog.show();
         GetProductDetail client =  StaticFunction.retrofit().create(GetProductDetail.class);
-        Call<Respon> call = client.setVar(id);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()),id);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -572,7 +564,7 @@ public class EditProductActivity extends AppCompatActivity {
     public void httpRequest_getProductPicture(int id){
         mProgressDialog.show();
         GetProductPicture client =  StaticFunction.retrofit().create(GetProductPicture.class);
-        Call<Respon> call = client.setVar(id);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), id);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -608,7 +600,7 @@ public class EditProductActivity extends AppCompatActivity {
 
     public void httpRequest_getCategoryList(String id){
        GetCategoryList client =  StaticFunction.retrofit().create(GetCategoryList.class);
-        Call<Respon> call = client.setVar(id);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()),id);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {

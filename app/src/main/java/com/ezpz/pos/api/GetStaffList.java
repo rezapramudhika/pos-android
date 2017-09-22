@@ -8,13 +8,14 @@ import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 /**
- * Created by RezaPramudhika on 9/16/2017.
+ * Created by RezaPramudhika on 9/22/2017.
  */
 
-public interface GetCompany {
-    @GET("api/v1/get-company")
+public interface GetStaffList {
+    @GET("api/v1/get-staff")
     Call<Respon> setVar(
             @Header("api_token") String apiToken,
-            @Query("id") String companyCode
+            @Query("company_code") String companyCode,
+            @Query("level") int level
     );
 }

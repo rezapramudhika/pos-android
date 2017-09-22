@@ -24,6 +24,8 @@ import android.widget.Toast;
 import com.ezpz.pos.R;
 import com.ezpz.pos.activity.MainPanelActivity;
 import com.ezpz.pos.adapter.SalesAdapter;
+import com.ezpz.pos.api.GetSalesList;
+import com.ezpz.pos.api.PostCreateCashIn;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Respon;
 import com.ezpz.pos.provider.Sales;
@@ -38,11 +40,6 @@ import java.util.TimeZone;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 
 public class SalesFragment extends Fragment {
@@ -284,7 +281,7 @@ public class SalesFragment extends Fragment {
     public void httpRequest_getSalesList(String companyCode, String date){
         mProgressDialog.show();
         GetSalesList client =  StaticFunction.retrofit().create(GetSalesList.class);
-        Call<Respon> call = client.setVar(companyCode, date);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()), companyCode, date);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -319,18 +316,10 @@ public class SalesFragment extends Fragment {
         });
     }
 
-    public interface GetSalesList {
-        @GET("api/v1/get-sales")
-        Call<Respon> setVar(
-                @Query("company_code") String companyCode,
-                @Query("date") String date
-        );
-    }
-
     public void httpRequest_postAddCashIn(int totalCash, String description, final String companyCode, int type, final Dialog dialog){
         mProgressDialog.show();
-        AddCashIn client =  StaticFunction.retrofit().create(AddCashIn.class);
-        Call<Respon> call = client.setVar(totalCash, description, companyCode, type);
+        PostCreateCashIn client =  StaticFunction.retrofit().create(PostCreateCashIn.class);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()), totalCash, description, companyCode, type);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -345,7 +334,7 @@ public class SalesFragment extends Fragment {
                     }
                 }else{
                     Toast.makeText(thisActivity.getApplicationContext(),
-                            "Server offline",
+                            getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -358,19 +347,6 @@ public class SalesFragment extends Fragment {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-
-
-    public interface AddCashIn {
-        @FormUrlEncoded
-        @POST("api/v1/add-cash")
-        Call<Respon> setVar(
-                @Field("total_cash") int totalCash,
-                @Field("description") String description,
-                @Field("company_code") String companyCode,
-                @Field("type") int type
-        );
     }
 
     @Override

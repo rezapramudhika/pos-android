@@ -102,7 +102,7 @@ public class ManageCategory extends AppCompatActivity {
     public void httpRequest_getCategory(String companyCode){
         mProgressDialog.show();
         GetCategory client =  StaticFunction.retrofit().create(GetCategory.class);
-        Call<Respon> call = client.setVar(companyCode);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()),companyCode);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -141,7 +141,7 @@ public class ManageCategory extends AppCompatActivity {
     public void httpRequest_addCategory(String categoryName, String companyCode){
         mProgressDialog.show();
         PostCreateCategory client =  StaticFunction.retrofit().create(PostCreateCategory.class);
-        Call<Respon> call = client.setVar(categoryName, companyCode);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), categoryName, companyCode);
 
         call.enqueue(new Callback<Respon>() {
             @Override

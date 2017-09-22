@@ -136,7 +136,7 @@ public class CashOutFragment extends Fragment {
 
     public void httpRequest_getCashOut(String companyCode) {
         GetCashOutList client = StaticFunction.retrofit().create(GetCashOutList.class);
-        Call<Respon> call = client.setVar(companyCode);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()),companyCode);
 
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -163,7 +163,7 @@ public class CashOutFragment extends Fragment {
     public void httpRequest_postAddCashOut(int totalCash, String description, final String companyCode, int type, final Dialog dialog){
         mProgressDialog.show();
         PostCreateCashOut client =  StaticFunction.retrofit().create(PostCreateCashOut.class);
-        Call<Respon> call = client.setVar(totalCash, description, companyCode, type);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()), totalCash, description, companyCode, type);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {

@@ -22,7 +22,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="38dp"
-        android:background="@android:color/white"
+        android:background="@drawable/edit_text_background"
         android:orientation="horizontal">
 
         <Spinner
@@ -132,7 +132,7 @@
                 android:layout_height="38dp"
                 android:layout_marginTop="2dp"
                 android:orientation="horizontal"
-                android:background="@android:color/white">
+                android:background="@drawable/edit_text_background">
                 <Spinner
                     android:id="@+id/spinnerEditProductCategory"
                     android:layout_width="match_parent"
@@ -143,6 +143,8 @@
                 android:id="@+id/btnEditProductInformation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryLight"
+                android:textColor="@android:color/white"
                 android:layout_marginTop="20dp"
                 android:text="Save Change"
                 android:onClick="addNewProduct"/>
@@ -200,12 +202,14 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:inputType="numberSigned"
-            android:background="@android:color/white" />
+            android:background="@drawable/edit_text_background" />
 
         <Button
             android:id="@+id/btnUpdateStock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryLight"
+            android:textColor="@android:color/white"
             android:layout_marginTop="20dp"
             android:text="Update"/>
 
@@ -233,18 +237,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Product Discount"/>
+            android:text="Product Discount (in %)"/>
 
         <EditText
             android:id="@+id/editDiscount"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@android:color/white" />
+            android:background="@drawable/edit_text_background" />
 
         <Button
             android:id="@+id/btnUpdateDiscount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryLight"
+            android:textColor="@android:color/white"
             android:layout_marginTop="20dp"
             android:text="Update"/>
 
@@ -279,6 +285,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"
             android:text="Yes i'm sure"/>
 
     </LinearLayout>

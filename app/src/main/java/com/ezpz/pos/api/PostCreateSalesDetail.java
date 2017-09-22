@@ -9,20 +9,20 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 /**
- * Created by RezaPramudhika on 9/16/2017.
+ * Created by RezaPramudhika on 9/22/2017.
  */
 
-public interface PostCreateProduct {
+public interface PostCreateSalesDetail {
     @FormUrlEncoded
-    @POST("api/v1/add-new-product")
+    @POST("api/v1/add-sales-detail")
     Call<Respon> setVar(
             @Header("api_token") String apiToken,
+            @Field("product_id") int productId,
             @Field("product_code") String productCode,
-            @Field("name") String name,
-            @Field("category") int category,
-            @Field("purchase_price") int purchasePrice,
+            @Field("member_code") String memberCode,
             @Field("selling_price") int sellingPrice,
-            @Field("description") String description,
+            @Field("disc") String disc,
+            @Field("subtotal") int subtotal,
             @Field("company_code") String companyCode
     );
 }

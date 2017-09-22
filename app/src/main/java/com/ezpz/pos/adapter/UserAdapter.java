@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezpz.pos.R;
+import com.ezpz.pos.api.PostDeleteUser;
 import com.ezpz.pos.fragment.UserFragment;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Respon;
@@ -23,9 +24,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 
 /**
  * Created by RezaPramudhika on 8/30/2017.
@@ -126,8 +124,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     public void httpRequest_deleteUser(int id, final DialogInterface dialog, final String companyCode){
-        DeleteUser client =  StaticFunction.retrofit().create(DeleteUser.class);
-        Call<Respon> call = client.setVar(id);
+        PostDeleteUser client =  StaticFunction.retrofit().create(PostDeleteUser.class);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()),id);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -141,7 +139,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                         Toast.makeText(thisActivity.getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(thisActivity.getApplicationContext(),
-                            "Server offline",
+                            thisActivity.getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -154,15 +152,5 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             }
         });
     }
-
-    public interface DeleteUser {
-        @FormUrlEncoded
-        @POST("api/v1/delete-user")
-        Call<Respon> setVar(
-                @Field("id") int id
-        );
-    }
-
-
 
 }

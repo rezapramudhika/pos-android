@@ -482,7 +482,7 @@ public class MainPanelActivity extends AppCompatActivity {
     public void httpRequest_getCategoryList(String id){
         //mProgressDialog.show();
        GetCategoryList client =  StaticFunction.retrofit().create(GetCategoryList.class);
-        Call<Respon> call = client.setVar(id);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()),id);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -514,7 +514,7 @@ public class MainPanelActivity extends AppCompatActivity {
     public void httpRequest_postAddCustomer(String name, String email, String address, String contact, String companyCode, final Dialog dialog){
         mProgressDialog.show();
         PostCreateMember client =  StaticFunction.retrofit().create(PostCreateMember.class);
-        Call<Respon> call = client.setVar(name, email, address, contact, companyCode);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), name, email, address, contact, companyCode);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -545,7 +545,7 @@ public class MainPanelActivity extends AppCompatActivity {
     public void httpRequest_getCompany(final String companyCode){
         mProgressDialog.show();
         GetCompany client =  StaticFunction.retrofit().create(GetCompany.class);
-        Call<Respon> call = client.setVar(companyCode);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()),companyCode);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {

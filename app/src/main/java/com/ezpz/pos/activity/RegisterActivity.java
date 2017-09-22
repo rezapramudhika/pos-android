@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
         String email = emailInput.getText().toString();
 
         String subject="Welcome to EZPZ Point of Sale";
-        String message="http://pasienesia.com/pos/api/v1/verification?email="+email+"&verification="+verification;
+        String message="http://pasienesia.com/pos/user/verification?email="+email+"&verification="+verification;
 
         //Creating SendMail object
         SendMail sm = new SendMail(this, email, subject, message, this, LoginActivity.class);

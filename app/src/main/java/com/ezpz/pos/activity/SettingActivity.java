@@ -203,7 +203,7 @@ public class SettingActivity extends AppCompatActivity {
 
     public void httpRequest_updatePassword(int id, String oldPassword, String newPassword, final Dialog dialog){
         PostUpdatePassword client =  StaticFunction.retrofit().create(PostUpdatePassword.class);
-        Call<Respon> call = client.setVar(id, StaticFunction.md5(oldPassword), StaticFunction.md5(newPassword));
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), id, StaticFunction.md5(oldPassword), StaticFunction.md5(newPassword));
 
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -240,7 +240,7 @@ public class SettingActivity extends AppCompatActivity {
     public void httpRequest_getCompany(String companyCode){
         mProgressDialog.show();
         GetCompany client =  StaticFunction.retrofit().create(GetCompany.class);
-        Call<Respon> call = client.setVar(companyCode);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()),companyCode);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -274,7 +274,7 @@ public class SettingActivity extends AppCompatActivity {
     public void httpRequest_editCompany(String name, String address, String contact, String discount, String tax, final String companyId){
         mProgressDialog.show();
         PostEditCompany client =  StaticFunction.retrofit().create(PostEditCompany.class);
-        Call<Respon> call = client.setVar(name, address, contact, discount, tax, companyId);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), name, address, contact, discount, tax, companyId);
 
         call.enqueue(new Callback<Respon>() {
             @Override

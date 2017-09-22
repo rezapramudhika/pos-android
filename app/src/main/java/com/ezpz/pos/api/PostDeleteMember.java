@@ -9,15 +9,14 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 /**
- * Created by RezaPramudhika on 9/16/2017.
+ * Created by RezaPramudhika on 9/22/2017.
  */
 
-public interface PostCreateCategory {
+public interface PostDeleteMember {
     @FormUrlEncoded
-    @POST("api/v1/add-category")
+    @POST("api/v1/delete-member")
     Call<Respon> setVar(
             @Header("api_token") String apiToken,
-            @Field("category_name") String categoryName,
-            @Field("company_code") String companyCode
+            @Field("id") int id
     );
 }

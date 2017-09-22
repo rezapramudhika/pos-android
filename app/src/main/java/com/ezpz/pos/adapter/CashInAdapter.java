@@ -126,7 +126,7 @@ public class CashInAdapter extends RecyclerView.Adapter<CashInAdapter.MyHolder> 
 
     public void httpRequest_postDeleteCashIn(int id, int type, final String companyCode){
         PostDeleteCashIn client =  StaticFunction.retrofit().create(PostDeleteCashIn.class);
-        Call<Respon> call = client.setVar(id, type);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()), id, type);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {

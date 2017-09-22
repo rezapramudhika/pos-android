@@ -37,6 +37,8 @@ import com.ezpz.pos.adapter.CashierProductAdapter;
 import com.ezpz.pos.api.GetMemberList;
 import com.ezpz.pos.api.GetProductList;
 import com.ezpz.pos.api.PostCreateMember;
+import com.ezpz.pos.api.PostCreateSales;
+import com.ezpz.pos.api.PostCreateSalesDetail;
 import com.ezpz.pos.api.PostUpdatePassword;
 import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.StaticFunction;
@@ -62,9 +64,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 
 public class CashierActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
@@ -952,7 +951,7 @@ public class CashierActivity extends AppCompatActivity {
 
         mProgressDialog.show();
         GetProductList client =  StaticFunction.retrofit().create(GetProductList.class);
-        Call<Respon> call = client.setVar(companyCode, idCategory);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), companyCode, idCategory);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -987,7 +986,7 @@ public class CashierActivity extends AppCompatActivity {
     public void httpRequest_postAddCustomer(String name, String email, String address, String contact, String companyCode, final Dialog dialog){
         mProgressDialog.show();
         PostCreateMember client =  StaticFunction.retrofit().create(PostCreateMember.class);
-        Call<Respon> call = client.setVar(name, email, address, contact, companyCode);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), name, email, address, contact, companyCode);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -1017,7 +1016,7 @@ public class CashierActivity extends AppCompatActivity {
     public void httpRequest_getMemberList(String companyCode, String inputSearch){
         mProgressDialog.show();
         GetMemberList client =  StaticFunction.retrofit().create(GetMemberList.class);
-        Call<Respon> call = client.setVar(companyCode, inputSearch);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), companyCode, inputSearch);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -1045,8 +1044,8 @@ public class CashierActivity extends AppCompatActivity {
     }
 
     public void httpRequest_postAddSales(int idUser, String memberCode, int quantity, int total, String disc, String tax, int grandTotal, String companyCode){
-        AddSales client =  StaticFunction.retrofit().create(AddSales.class);
-        Call<Respon> call = client.setVar(idUser, memberCode, quantity, total, disc, tax, grandTotal, companyCode);
+        PostCreateSales client =  StaticFunction.retrofit().create(PostCreateSales.class);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), idUser, memberCode, quantity, total, disc, tax, grandTotal, companyCode);
 
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -1073,26 +1072,9 @@ public class CashierActivity extends AppCompatActivity {
         });
     }
 
-
-
-    public interface AddSales {
-        @FormUrlEncoded
-        @POST("api/v1/add-sales")
-        Call<Respon> setVar(
-                @Field("user_id") int idUser,
-                @Field("member_code") String memberCode,
-                @Field("quantity") int quantity,
-                @Field("total") int total,
-                @Field("disc") String disc,
-                @Field("tax") String tax,
-                @Field("grand_total") int grandTotal,
-                @Field("company_code") String companyCode
-        );
-    }
-
     public void httpRequest_postAddSalesDetail(int productId, String productCode, String memberCode, int sellingPrice, String disc, int subtotal, String companyCode){
-        AddSalesDetail client =  StaticFunction.retrofit().create(AddSalesDetail.class);
-        Call<Respon> call = client.setVar(productId, productCode, memberCode, sellingPrice, disc, subtotal, companyCode);
+        PostCreateSalesDetail client =  StaticFunction.retrofit().create(PostCreateSalesDetail.class);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), productId, productCode, memberCode, sellingPrice, disc, subtotal, companyCode);
 
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -1118,23 +1100,6 @@ public class CashierActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-    public interface AddSalesDetail {
-        @FormUrlEncoded
-        @POST("api/v1/add-sales-detail")
-        Call<Respon> setVar(
-                @Field("product_id") int productId,
-                @Field("product_code") String productCode,
-                @Field("member_code") String memberCode,
-                @Field("selling_price") int sellingPrice,
-                @Field("disc") String disc,
-                @Field("subtotal") int subtotal,
-                @Field("company_code") String companyCode
-        );
-    }
-
 
     @Override
     public void onStart() {
@@ -1361,7 +1326,7 @@ public class CashierActivity extends AppCompatActivity {
 
     public void httpRequest_updatePassword(int id, String oldPassword, String newPassword, final Dialog dialog){
         PostUpdatePassword client =  StaticFunction.retrofit().create(PostUpdatePassword.class);
-        Call<Respon> call = client.setVar(id, StaticFunction.md5(oldPassword), StaticFunction.md5(newPassword));
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), id, StaticFunction.md5(oldPassword), StaticFunction.md5(newPassword));
 
         call.enqueue(new Callback<Respon>() {
             @Override

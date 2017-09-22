@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.ezpz.pos.R;
 import com.ezpz.pos.activity.ManageCategory;
+import com.ezpz.pos.api.PostDeleteCategory;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Category;
 import com.ezpz.pos.provider.Respon;
@@ -22,9 +23,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 
 /**
  * Created by RezaPramudhika on 8/23/2017.
@@ -97,8 +95,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
     public void httpRequest_deleteCategory(int id, final String companyCode){
-        DeleteCategory client =  StaticFunction.retrofit().create(DeleteCategory.class);
-        Call<Respon> call = client.setVar(id, companyCode);
+        PostDeleteCategory client =  StaticFunction.retrofit().create(PostDeleteCategory.class);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(context.getApplicationContext()), id, companyCode);
 
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -112,7 +110,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                     }
                 }else{
                     Toast.makeText(context.getApplicationContext(),
-                            "Server offline",
+                            context.getApplicationContext().getResources().getString(R.string.error_async_text),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -125,14 +123,5 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public interface DeleteCategory {
-        @FormUrlEncoded
-        @POST("api/v1/delete-category")
-        Call<Respon> setVar(
-                @Field("id") int id,
-                @Field("company_code") String companyCode
-        );
     }
 }

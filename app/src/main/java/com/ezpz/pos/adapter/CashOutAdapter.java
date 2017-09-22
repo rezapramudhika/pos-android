@@ -124,7 +124,7 @@ public class CashOutAdapter extends RecyclerView.Adapter<CashOutAdapter.MyHolder
 
     public void httpRequest_postDeleteCashOut(int id, int type, final String companyCode){
         PostDeleteCashOut client =  StaticFunction.retrofit().create(PostDeleteCashOut.class);
-        Call<Respon> call = client.setVar(id, type);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()),id, type);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {

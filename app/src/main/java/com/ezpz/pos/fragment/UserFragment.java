@@ -1,5 +1,6 @@
 package com.ezpz.pos.fragment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.ezpz.pos.R;
 import com.ezpz.pos.activity.MainPanelActivity;
 import com.ezpz.pos.adapter.UserAdapter;
+import com.ezpz.pos.api.GetStaffList;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Respon;
 import com.ezpz.pos.provider.User;
@@ -25,8 +27,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public class UserFragment extends Fragment {
 
@@ -36,6 +36,7 @@ public class UserFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     private List<User> users;
     private UserFragment fragment;
+    private Activity thisActivity;
 
     public UserFragment() {
         // Required empty public constructor
@@ -55,6 +56,7 @@ public class UserFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
         fragment = this;
+        thisActivity = getActivity();
         userList = (RecyclerView) view.findViewById(R.id.userListRecycleView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         userList.setLayoutManager(mLayoutManager);
@@ -87,8 +89,8 @@ public class UserFragment extends Fragment {
 
     public void httpRequest_getUser (String companyCode, int level){
         mProgressDialog.show();
-        GetUser client =  StaticFunction.retrofit().create(GetUser.class);
-        Call<Respon> call = client.setVar(companyCode, level);
+        GetStaffList client =  StaticFunction.retrofit().create(GetStaffList.class);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken((thisActivity.getApplicationContext())), companyCode, level);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -118,14 +120,4 @@ public class UserFragment extends Fragment {
             }
         });
     }
-
-    public interface GetUser {
-        @GET("api/v1/get-staff")
-        Call<Respon> setVar(
-                @Query("company_code") String companyCode,
-                @Query("level") int level
-        );
-    }
-
-
 }

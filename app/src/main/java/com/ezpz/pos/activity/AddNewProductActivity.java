@@ -138,7 +138,7 @@ public class AddNewProductActivity extends AppCompatActivity {
     public void httpRequest_addNewProduct(String productCode, String name, int category, int purchasePrice, int sellingPrice, String description, String companyCode){
         mProgressDialog.show();
         PostCreateProduct client =  StaticFunction.retrofit().create(PostCreateProduct.class);
-        Call<Respon> call = client.setVar(productCode, name, category, purchasePrice, sellingPrice, description, companyCode);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), productCode, name, category, purchasePrice, sellingPrice, description, companyCode);
 
         call.enqueue(new Callback<Respon>() {
             @Override
@@ -173,7 +173,7 @@ public class AddNewProductActivity extends AppCompatActivity {
     public void httpRequest_getCategoryList(String id){
         mProgressDialog.show();
         GetCategoryList client =  StaticFunction.retrofit().create(GetCategoryList.class);
-        Call<Respon> call = client.setVar(id);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()),id);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {

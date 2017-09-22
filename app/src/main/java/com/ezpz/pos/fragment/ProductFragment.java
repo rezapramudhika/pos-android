@@ -1,5 +1,6 @@
 package com.ezpz.pos.fragment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,6 +46,7 @@ public class ProductFragment extends Fragment {
     private ArrayAdapter<String> categoryAdapter;
     private ProgressDialog mProgressDialog;
     private View thisView;
+    private Activity thisActivity;
 
 
     public ProductFragment() {
@@ -65,7 +67,7 @@ public class ProductFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product, container, false);
         thisView = view;
-
+        thisActivity = getActivity();
         initVar();
 
         httpRequest_getCategoryList(companyCode());
@@ -151,7 +153,7 @@ public class ProductFragment extends Fragment {
             idCategory = String.valueOf(categoryList.get(category).getId());
         mProgressDialog.show();
         GetProductList client =  StaticFunction.retrofit().create(GetProductList.class);
-        Call<Respon> call = client.setVar(companyCode, idCategory);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()),companyCode, idCategory);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
@@ -182,7 +184,7 @@ public class ProductFragment extends Fragment {
 
     public void httpRequest_getCategoryList(String id){
         GetCategoryList client =  StaticFunction.retrofit().create(GetCategoryList.class);
-        Call<Respon> call = client.setVar(id);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken((thisActivity.getApplicationContext())),id);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
