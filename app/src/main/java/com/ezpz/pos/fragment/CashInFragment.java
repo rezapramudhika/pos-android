@@ -134,7 +134,7 @@ public class CashInFragment extends Fragment {
 
     public void httpRequest_getCashIn(String companyCode) {
         GetCashInList client = StaticFunction.retrofit().create(GetCashInList.class);
-        Call<Respon> call = client.setVar(companyCode);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()),companyCode);
 
         call.enqueue(new Callback<Respon>() {
             @Override

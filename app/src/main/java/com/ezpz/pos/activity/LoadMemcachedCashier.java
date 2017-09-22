@@ -40,7 +40,7 @@ public class LoadMemcachedCashier extends AppCompatActivity {
 
     public void httpRequest_getCashierData(String companyCode){
         GetCashierData client =  StaticFunction.retrofit().create(GetCashierData.class);
-        Call<Respon> call = client.setVar(companyCode);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()),companyCode);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {

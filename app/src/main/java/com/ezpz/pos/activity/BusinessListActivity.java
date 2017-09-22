@@ -88,7 +88,7 @@ public class BusinessListActivity extends AppCompatActivity {
     public void httpRequest_getBusinessList(int userId){
         mProgressDialog.show();
         GetBusinessList client =  StaticFunction.retrofit().create(GetBusinessList.class);
-        Call<Respon> call = client.setVar(userId);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()),userId);
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {

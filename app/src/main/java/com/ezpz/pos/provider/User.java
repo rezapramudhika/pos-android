@@ -33,7 +33,9 @@ public class User {
     @SerializedName("confirmed")
     @Expose
     private int confirmed;
-
+    @SerializedName("api_token")
+    @Expose
+    private String apiToken;
 
 
     public int getId() {
@@ -97,5 +99,13 @@ public class User {
 
     public void setVerification(String verification) {
         this.verification = verification;
+    }
+
+    public String getApiToken() {
+        return apiToken;
+    }
+
+    public void setApiToken(String apiToken) {
+        this.apiToken = apiToken;
     }
 }
