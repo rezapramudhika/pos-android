@@ -17,6 +17,7 @@ import com.ezpz.pos.R;
 import com.ezpz.pos.activity.MainPanelActivity;
 import com.ezpz.pos.adapter.UserAdapter;
 import com.ezpz.pos.api.GetStaffList;
+import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Respon;
 import com.ezpz.pos.provider.User;
 

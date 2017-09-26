@@ -16,6 +16,7 @@ import com.ezpz.pos.BuildConfig;
 import com.ezpz.pos.R;
 import com.ezpz.pos.api.GetAppVersion;
 import com.ezpz.pos.other.Memcache;
+import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Respon;
 import com.ezpz.pos.provider.User;
 

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.ezpz.pos.R;
 import com.ezpz.pos.activity.ManageCategory;
 import com.ezpz.pos.api.PostDeleteCategory;
+import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Category;
 import com.ezpz.pos.provider.Respon;
 

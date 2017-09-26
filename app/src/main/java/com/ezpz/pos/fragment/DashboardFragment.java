@@ -19,6 +19,7 @@ import com.ezpz.pos.R;
 import com.ezpz.pos.activity.MainPanelActivity;
 import com.ezpz.pos.adapter.TopProductAdapter;
 import com.ezpz.pos.api.GetDashboard;
+import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.ProductFav;
 import com.ezpz.pos.provider.Respon;
 

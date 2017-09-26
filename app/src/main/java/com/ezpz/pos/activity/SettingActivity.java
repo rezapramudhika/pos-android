@@ -21,6 +21,7 @@ import com.ezpz.pos.api.GetCompany;
 import com.ezpz.pos.api.PostEditCompany;
 import com.ezpz.pos.api.PostUpdatePassword;
 import com.ezpz.pos.other.Memcache;
+import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Company;
 import com.ezpz.pos.provider.Respon;
 import com.ezpz.pos.provider.User;

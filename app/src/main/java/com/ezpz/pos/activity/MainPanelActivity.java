@@ -34,6 +34,7 @@ import com.ezpz.pos.fragment.ProductFragment;
 import com.ezpz.pos.fragment.SalesFragment;
 import com.ezpz.pos.fragment.UserFragment;
 import com.ezpz.pos.other.Memcache;
+import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Category;
 import com.ezpz.pos.provider.Company;
 import com.ezpz.pos.provider.Respon;

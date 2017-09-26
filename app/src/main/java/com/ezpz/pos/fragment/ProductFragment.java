@@ -21,6 +21,7 @@ import com.ezpz.pos.activity.MainPanelActivity;
 import com.ezpz.pos.adapter.ProductAdapter;
 import com.ezpz.pos.api.GetCategoryList;
 import com.ezpz.pos.api.GetProductList;
+import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Category;
 import com.ezpz.pos.provider.Product;
 import com.ezpz.pos.provider.Respon;
