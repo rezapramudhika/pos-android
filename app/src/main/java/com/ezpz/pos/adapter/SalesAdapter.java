@@ -83,7 +83,7 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.ViewHolder> 
     public String getDate(String inputDate){
         String curDate = inputDate;
         SimpleDateFormat curDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        SimpleDateFormat desiredDateFormat = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat desiredDateFormat = new SimpleDateFormat("hh:mm");
         java.util.Calendar cal = java.util.Calendar.getInstance();
         String output = "";
         try {

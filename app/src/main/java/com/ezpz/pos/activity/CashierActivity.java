@@ -117,6 +117,7 @@ public class CashierActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCanceledOnTouchOutside(false);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarCashier);
         setSupportActionBar(toolbar);
@@ -794,26 +795,9 @@ public class CashierActivity extends AppCompatActivity {
             }
         }
 
+    }
 
-//        int totalPrice = Integer.valueOf(txtTotalPrice.getText().toString());
-//        int totalDisc = 0;
-//        if (companyDisc() == ""){
-//            totalDisc = 0;
-//        }else
-//            totalDisc = totalPrice*Integer.valueOf(companyDisc())/100;
-//
-//        int totalTax = Integer.valueOf(txtTotalTax.getText().toString());
-//        int netBill = Integer.valueOf(txtNetBill.getText().toString());
-//        int totalNetBill;
-//        int grandTotal;
-//        if (totalDisc==0){
-//            totalNetBill = netBill;
-//        }else{
-//            grandTotal = totalPrice-totalDisc;
-//            totalNetBill = grandTotal+totalTax;
-//        }
-
-
+    public void addSalesDetail(){
         List<Product>  products = billAdapter.getListProduct();
         String productCode;
         int sellingPrice;
@@ -842,7 +826,6 @@ public class CashierActivity extends AppCompatActivity {
                 httpRequest_postAddSalesDetail(productId, productCode, getSelectedMemberCode(), sellingPrice, discTotal, subTotal, companyCode());
             }
         }
-
     }
 
     public void setBillModelArrayList(){
@@ -934,10 +917,6 @@ public class CashierActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
     }
 
 
@@ -1053,6 +1032,7 @@ public class CashierActivity extends AppCompatActivity {
                 mProgressDialog.dismiss();
                 if(response.isSuccessful()) {
                     Respon respon = response.body();
+                    addSalesDetail();
                     if(respon.getStatusCode().equalsIgnoreCase("200")){
                         setBillNumber(respon.getBillNumber());
                     }

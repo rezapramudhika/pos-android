@@ -35,6 +35,7 @@ public class DashboardFragment extends Fragment {
     private ProgressDialog mProgressDialog;
     private TextView txtTotalSales, txtTotalMember, txtTotalCashIn, txtTotalCashOut;
     private List<ProductFav> productFavList = new ArrayList<>();
+    private List<ProductFav> productFavListName = new ArrayList<>();
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView.Adapter adapter;
     private RecyclerView topProductRecyclerView;
@@ -53,6 +54,7 @@ public class DashboardFragment extends Fragment {
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCanceledOnTouchOutside(false);
     }
 
     @Override
@@ -88,7 +90,7 @@ public class DashboardFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         topProductRecyclerView.setLayoutManager(mLayoutManager);
         topProductRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter = new TopProductAdapter(thisActivity, productFavList, thisContext);
+        adapter = new TopProductAdapter(thisActivity, productFavList, productFavListName, thisContext);
         topProductRecyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -122,8 +124,12 @@ public class DashboardFragment extends Fragment {
                                 String.valueOf(respon.getTotalCashIn()),
                                 String.valueOf(respon.getTotalCashOut()));
                         productFavList.clear();
+                        productFavListName.clear();
                         for (ProductFav productFav : respon.getProductFavList()) {
                             productFavList.add(productFav);
+                        }
+                        for (ProductFav productFav : respon.getProductFavListName()){
+                            productFavListName.add(productFav);
                         }
                         adapter.notifyDataSetChanged();
                         swipeRefreshLayout.setRefreshing(false);

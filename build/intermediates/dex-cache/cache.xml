@@ -48,21 +48,21 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\rezap\AndroidStudioProjects\POS\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="56f1c73f0e29409bf46db92fe065b895280b3d23">
+        <dex dex="C:\Users\rezap\AndroidStudioProjects\POS\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_618a72765e1113514906c4733496aab96f5cbcab\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\rezap\AndroidStudioProjects\POS\app\libs\mail.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.1"
         sha1="428e267abff0d10802ccde86b915da2c20471160">
         <dex dex="C:\Users\rezap\AndroidStudioProjects\POS\app\build\intermediates\transforms\dex\debug\folders\1000\2\mail_a74ac8a643fadcd33e70f721f0099a4cae8b3a17\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\rezap\AndroidStudioProjects\POS\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.1"
-        sha1="75aa7fc94b2ab280bc89b2eda5fbda390a56f914">
-        <dex dex="C:\Users\rezap\AndroidStudioProjects\POS\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_618a72765e1113514906c4733496aab96f5cbcab\classes.dex" />
     </item>
     <item
         is-multidex="false"

@@ -20,13 +20,15 @@ import java.util.List;
 public class TopProductAdapter extends RecyclerView.Adapter<TopProductAdapter.ViewHolder> {
 
     List<ProductFav> productList;
+    List<ProductFav> productListName;
     Context context;
     Activity thisActivity;
 
-    public TopProductAdapter(Activity thisActivity, List<ProductFav> productList, Context context) {
+    public TopProductAdapter(Activity thisActivity, List<ProductFav> productList, List<ProductFav> productListName, Context context) {
         this.productList = productList;
         this.context = context;
         this.thisActivity = thisActivity;
+        this.productListName = productListName;
     }
 
     @Override
@@ -39,8 +41,8 @@ public class TopProductAdapter extends RecyclerView.Adapter<TopProductAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final ProductFav product = productList.get(position);
-        holder.txtProductCode.setText((position+1)+". Product code: "+product.getProductCode());
-        holder.txtProductCount.setText("Sales count: "+product.getCount()+"x");
+        final ProductFav name = productListName.get(position);
+        holder.txtProductCode.setText((position+1)+". "+name.getProductName()+" (Sold: "+product.getCount()+")");
     }
 
     @Override
@@ -50,12 +52,10 @@ public class TopProductAdapter extends RecyclerView.Adapter<TopProductAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtProductCode;
-        private TextView txtProductCount;
 
         public ViewHolder(View itemView) {
             super(itemView);
             txtProductCode = (TextView) itemView.findViewById(R.id.txtProductCode);
-            txtProductCount = (TextView) itemView.findViewById(R.id.txtProductCount);
         }
     }
 

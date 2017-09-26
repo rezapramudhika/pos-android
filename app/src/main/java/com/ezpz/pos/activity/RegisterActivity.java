@@ -38,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCanceledOnTouchOutside(false);
 
         nameInput = (EditText) findViewById(R.id.inputRegisterName);
         emailInput = (EditText) findViewById(R.id.inputRegisterEmail);

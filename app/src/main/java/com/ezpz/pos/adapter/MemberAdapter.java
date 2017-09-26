@@ -219,7 +219,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
                         builder.setMessage("Member hasn't made any transactions yet.");
                     }else{
                         String totalPurchase = StaticFunction.moneyFormat(Double.valueOf(respon.getTotalPurchase()));
-                        String favProduct = respon.getProductFav().getProductCode();
+                        String favProduct = respon.getProductFav().getProductId();
                         builder.setMessage("Total Purchase: "+totalPurchase+"\n"+"Favorite Product: "+favProduct);
                     }
                     builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {

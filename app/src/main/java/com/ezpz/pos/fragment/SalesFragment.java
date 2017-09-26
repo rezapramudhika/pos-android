@@ -66,6 +66,7 @@ public class SalesFragment extends Fragment {
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCanceledOnTouchOutside(false);
     }
 
     @RequiresApi(api = 26)
@@ -298,7 +299,7 @@ public class SalesFragment extends Fragment {
                         if (respon.getProductFav() == null){
                             setSalesResume(respon.getTotalSales(), respon.getTotalIncome(), "");
                         }else
-                            setSalesResume(respon.getTotalSales(), respon.getTotalIncome(), respon.getProductFav().getProductCode());
+                            setSalesResume(respon.getTotalSales(), respon.getTotalIncome(), respon.getProductFavName().getProductName());
                     }else{
                         Toast.makeText(getActivity().getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_LONG).show();
                     }

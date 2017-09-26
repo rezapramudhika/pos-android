@@ -12,9 +12,12 @@ public class ProductFav {
     @SerializedName("count")
     @Expose
     private int count;
-    @SerializedName("product_code")
+    @SerializedName("product_id")
     @Expose
-    private String productCode;
+    private String productId;
+    @SerializedName("product_name")
+    @Expose
+    private String productName;
 
 
     public int getCount() {
@@ -25,11 +28,19 @@ public class ProductFav {
         this.count = count;
     }
 
-    public String getProductCode() {
-        return productCode;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }

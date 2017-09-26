@@ -62,6 +62,12 @@ public class Respon {
     @SerializedName("fav_product")
     @Expose
     private ProductFav productFav = null;
+    @SerializedName("fav_product_name")
+    @Expose
+    private ProductFav productFavName = null;
+    @SerializedName("fav_product_list_name")
+    @Expose
+    private List<ProductFav> productFavListName = null;
     @SerializedName("fav_product_list")
     @Expose
     private List<ProductFav> productFavList = null;
@@ -339,5 +345,21 @@ public class Respon {
 
     public void setConfirmed(int confirmed) {
         this.confirmed = confirmed;
+    }
+
+    public ProductFav getProductFavName() {
+        return productFavName;
+    }
+
+    public void setProductFavName(ProductFav productFavName) {
+        this.productFavName = productFavName;
+    }
+
+    public List<ProductFav> getProductFavListName() {
+        return productFavListName;
+    }
+
+    public void setProductFavListName(List<ProductFav> productFavListName) {
+        this.productFavListName = productFavListName;
     }
 }

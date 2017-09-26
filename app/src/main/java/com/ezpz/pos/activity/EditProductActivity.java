@@ -68,6 +68,7 @@ public class EditProductActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCanceledOnTouchOutside(false);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarEditProduct);
         setSupportActionBar(toolbar);
