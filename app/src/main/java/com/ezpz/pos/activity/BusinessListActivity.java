@@ -19,7 +19,10 @@ import com.ezpz.pos.R;
 import com.ezpz.pos.adapter.BusinessAdapter;
 import com.ezpz.pos.api.GetBusinessList;
 import com.ezpz.pos.other.Memcache;
+<<<<<<< HEAD
 import com.ezpz.pos.other.StaticFunction;
+=======
+>>>>>>> origin/master
 import com.ezpz.pos.provider.Company;
 import com.ezpz.pos.provider.Respon;
 

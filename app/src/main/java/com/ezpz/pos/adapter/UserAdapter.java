@@ -15,7 +15,10 @@ import android.widget.Toast;
 import com.ezpz.pos.R;
 import com.ezpz.pos.api.PostDeleteUser;
 import com.ezpz.pos.fragment.UserFragment;
+<<<<<<< HEAD
 import com.ezpz.pos.other.StaticFunction;
+=======
+>>>>>>> origin/master
 import com.ezpz.pos.provider.Respon;
 import com.ezpz.pos.provider.User;
 

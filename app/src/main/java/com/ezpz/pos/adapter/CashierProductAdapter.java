@@ -11,7 +11,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ezpz.pos.R;
+<<<<<<< HEAD
 import com.ezpz.pos.other.StaticFunction;
+=======
+>>>>>>> origin/master
 import com.ezpz.pos.provider.Product;
 
 import java.util.ArrayList;

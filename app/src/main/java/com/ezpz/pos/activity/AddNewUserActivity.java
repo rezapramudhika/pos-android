@@ -14,7 +14,10 @@ import com.ezpz.pos.R;
 import com.ezpz.pos.api.PostRegister;
 import com.ezpz.pos.other.Memcache;
 import com.ezpz.pos.other.SendMail;
+<<<<<<< HEAD
 import com.ezpz.pos.other.StaticFunction;
+=======
+>>>>>>> origin/master
 import com.ezpz.pos.provider.Respon;
 import com.ezpz.pos.provider.Staff;
 

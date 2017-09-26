@@ -20,7 +20,10 @@ import com.ezpz.pos.api.GetMemberDetail;
 import com.ezpz.pos.api.PostDeleteMember;
 import com.ezpz.pos.api.PostEditCustomer;
 import com.ezpz.pos.fragment.MemberFragment;
+<<<<<<< HEAD
 import com.ezpz.pos.other.StaticFunction;
+=======
+>>>>>>> origin/master
 import com.ezpz.pos.provider.Member;
 import com.ezpz.pos.provider.Respon;
 

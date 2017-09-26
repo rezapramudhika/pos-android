@@ -30,7 +30,10 @@ import com.ezpz.pos.api.PostUpdateProductInformation;
 import com.ezpz.pos.api.PostUpdateProductStock;
 import com.ezpz.pos.api.PostUploadImage;
 import com.ezpz.pos.other.FileUtils;
+<<<<<<< HEAD
 import com.ezpz.pos.other.StaticFunction;
+=======
+>>>>>>> origin/master
 import com.ezpz.pos.provider.Category;
 import com.ezpz.pos.provider.Product;
 import com.ezpz.pos.provider.Respon;

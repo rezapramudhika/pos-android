@@ -16,7 +16,10 @@ import android.widget.Toast;
 import com.ezpz.pos.R;
 import com.ezpz.pos.api.GetCategoryList;
 import com.ezpz.pos.api.PostCreateProduct;
+<<<<<<< HEAD
 import com.ezpz.pos.other.StaticFunction;
+=======
+>>>>>>> origin/master
 import com.ezpz.pos.provider.Category;
 import com.ezpz.pos.provider.Respon;
 
