@@ -1,0 +1,186 @@
+<resources>
+    <string name="app_name">EZPZ POS</string>
+    <string name="error_async_text">Failed to get data from server.</string>
+    <string name="respon_not_success">Response not successful.</string>
+    <string name="title_activity_main_panel">MainPanelActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+
+    <item name="visible" type="id"/>
+    <item name="masked" type="id"/>
+
+    <!-- Navigation Drawer menu labels -->
+    <string name="nav_home">Home</string>
+    <string name="nav_photos">Photos</string>
+    <string name="nav_movies">Movies</string>
+    <string name="nav_notifications">Notifications</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_about_us">About Us</string>
+
+    <!-- Toolbar titles when navigation menu item is selected -->
+    <string-array name="nav_item_activity_titles">
+        <item>Dashboard</item>
+        <item>Product</item>
+        <item>Sales</item>
+        <item>Cash In and Out</item>
+        <item>Member</item>
+        <item>User</item>
+    </string-array>
+
+    <string-array name="edit_product_layout">
+        <item>Product Information</item>
+        <item>Product Stock</item>
+        <item>Product Discount</item>
+        <item>Delete Product</item>
+    </string-array>
+
+    <string name="activity_title_about_us">About Us</string>
+    <string name="activity_title_privacy_policy">Privacy Policy</string>
+    <string name="action_clear_all">Clear All</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_mark_all_read">Mark All as Read</string>
+    <string name="privacy_policy">Privacy Policy</string>
+
+    <string name="scanning">Searching...</string>
+    <string name="select_device">Select a device to connect</string>
+    <string name="none_paired">No devices have been paired</string>
+    <string name="none_found">No devices found</string>
+    <string name="no_printer_connected">No printer is connected</string>
+    <string name="title_paired_devices">Paired Devices</string>
+    <string name="title_other_devices">Other Available Devices</string>
+    <string name="button_scan">Search for devices</string>
+    <string name="connect_bluetooth_device_btn">Connect a Bluetooth Printer</string>
+    <string name="print_btn">Print Receipt</string>
+    <string name="option_btn">Print Option</string>
+    <string name="bt_inquiry_btn">Inquiry Status</string>
+    <string name="quit_btn">Quit</string>
+    <string name="title_connecting">Connecting...</string>
+    <string name="title_connected_to">connected: </string>
+    <string name="bt_not_enabled_leaving">Bluetooth is not enabled</string>
+    <string name="print_line">"--------------------------------"  </string>
+    <string name="alert_title">Re-connect</string>
+    <string name="alert_message">Would you like to re-connect with a bluetooth printer?</string>
+    <string name="alert_btn_positive">Yes</string>
+    <string name="alert_btn_negative">No</string>
+    <string name="contentdesctiption">content description</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="getting_data">Getting data from server...</string>
+
+
+    <!-- layout add new business -->
+    <string name="business_name">Business Name</string>
+    <string name="business_address">Address</string>
+    <string name="business_phone">Contact</string>
+    <string name="select_business_category">Select business category</string>
+    <string name="btn_add_business">Add Business</string>
+    <string name="btn_add_new_business">Add New Business</string>
+
+    <!-- layout product -->
+    <string name="title_add_new_product">Add New Product</string>
+    <string name="title_edit_product_info">Edit Product Information</string>
+    <string name="title_edit_product_stock">Edit Product Stock</string>
+    <string name="title_edit_product_discount">Edit Product Discount</string>
+    <string name="title_delete_product">Delete Product</string>
+    <string name="product_code">Product Code</string>
+    <string name="product_name">Product Name</string>
+    <string name="purchase_price">Purchase Price</string>
+    <string name="selling_price">Selling Price</string>
+    <string name="description">Description</string>
+    <string name="select_product_category">Select product category</string>
+    <string name="txt_now_in_stock">Now in stock:</string>
+    <string name="txt_add_stock">Add Stock</string>
+    <string name="txt_product_discount">Product Discount (in %)</string>
+    <string name="txt_confirm_delete_product">Are you sure to delete this product?</string>
+    <string name="btn_update_stock">Update</string>
+    <string name="btn_refresh">Refresh</string>
+    <string name="btn_update_discount">Update</string>
+    <string name="btn_add_new_product">Add Product</string>
+    <string name="btn_save_change">Save Change</string>
+    <string name="btn_delete_product">Yes I am sure</string>
+
+    <!-- layout user -->
+    <string name="title_add_new_staff">Add New Staff</string>
+    <string name="user_name">Name</string>
+    <string name="user_email">Email</string>
+    <string name="user_create_password">Create a password</string>
+    <string name="user_confirm_password">Confirm your password</string>
+    <string name="user_old_password">Old password</string>
+    <string name="user_new_password">Create new password</string>
+    <string name="user_position">Position</string>
+    <string name="btn_add_new_user">Add</string>
+    <string name="btn_submit">Submit</string>
+
+    <!-- layout cashier -->
+    <string name="btn_search_member">Search Member</string>
+    <string name="btn_new_member">New Member</string>
+    <string name="txt_cashier">Cashier:</string>
+    <string name="txt_customer">Customer:</string>
+    <string name="txt_guest">Guest</string>
+    <string name="btn_reset_customer">x</string>
+    <string name="txt_quantity">Quantity:</string>
+    <string name="txt_total_bill">Total Bill:</string>
+    <string name="txt_disc">Disc:</string>
+    <string name="txt_tax">Tax:</string>
+    <string name="txt_net_bill">Net Bill:</string>
+    <string name="btn_checkout">Checkout</string>
+    <string name="txt_grand_total">Grand Total</string>
+    <string name="txt_payment">Payment</string>
+    <string name="txt_change">Change</string>
+    <string name="txt_cash">Cash:</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_done">Done</string>
+    <string name="btn_print">Print</string>
+
+    <!-- layout login/register -->
+    <string name="btn_login">Login</string>
+    <string name="btn_link_to_register">Does not have any account? Register here.</string>
+    <string name="btn_register">Register</string>
+    <string name="btn_link_to_login">Already registered! Login here</string>
+    <string name="password">Password</string>
+
+    <!-- layout manage category -->
+    <string name="txt_category_name">Login</string>
+    <string name="btn_add_category">Add Category</string>
+    <string name="txt_category_list">Category List</string>
+
+    <!-- layout setting -->
+    <string name="txt_company_information">Company Information</string>
+    <string name="txt_member_discount">Member Discount</string>
+    <string name="txt_company_taxes">Company Taxes</string>
+    <string name="txt_disc_hint">Disc in %</string>
+    <string name="txt_taxes_hint">Taxes in %</string>
+    <string name="btn_change_password">Change Password</string>
+
+    <!-- layout add cash -->
+    <string name="txt_title_cash_in">CASH IN</string>
+    <string name="txt_title_cash_out">CASH OUT</string>
+    <string name="hint_total">Total</string>
+    <string name="hint_description">Description</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_add_cash_in">Add Cash In</string>
+    <string name="btn_add_cash_out">Add Cash Out</string>
+
+    <!-- layout member -->
+    <string name="txt_title_new_member">Member Registration</string>
+    <string name="txt_title_edit_member">Edit Member</string>
+    <string name="txt_title_search_member">Search Member</string>
+    <string name="btn_add_new_member">Register Member</string>
+    <string name="hint_search_member">Search Name</string>
+    <string name="btn_search">Search</string>
+
+    <!-- layout dashboard -->
+    <string name="txt_total_sales">Total Sales</string>
+    <string name="txt_total_member">Total Member</string>
+    <string name="txt_total_cash_in">Total Cash In</string>
+    <string name="txt_total_cash_out">Total Cash Out</string>
+    <string name="txt_top_product">Top 5 Favorite Products</string>
+    <string name="txt_total_income">Total Income</string>
+    <string name="txt_best_seller">Best Seller</string>
+    <string name="btn_save_to_cash_in">Save to cash in</string>
+</resources>
