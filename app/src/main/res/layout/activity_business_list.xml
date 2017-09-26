@@ -52,7 +52,7 @@
             android:id="@+id/linkToAddBusiness"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Add New Business"
+            android:text="@string/btn_add_new_business"
             android:background="@color/colorPrimaryLight"
             android:textColor="@android:color/white"
             android:onClick="linkToAddBusiness"/>

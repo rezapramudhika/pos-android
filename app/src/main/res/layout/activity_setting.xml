@@ -34,7 +34,7 @@
                 <TextView
                     android:layout_marginTop="10dp"
                     android:paddingLeft="5dp"
-                    android:textSize="10dp"
+                    android:textSize="10sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Company Information"/>
@@ -53,33 +53,39 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Name"/>
+                        android:text="@string/user_name"/>
                     <EditText
                         android:id="@+id/editCompanyName"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:background="@drawable/edit_text_background"/>
 
                     <TextView
                         android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Address"/>
+                        android:text="@string/business_address"/>
                     <EditText
                         android:id="@+id/editCompanyAddress"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:background="@drawable/edit_text_background"/>
 
                     <TextView
                         android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Contact"/>
+                        android:text="@string/business_phone"/>
                     <EditText
                         android:id="@+id/editCompanyContact"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:background="@drawable/edit_text_background"/>
 
                     <TextView
@@ -106,10 +112,10 @@
                 android:layout_marginTop="20dp">
                 <TextView
                     android:paddingLeft="5dp"
-                    android:textSize="10dp"
+                    android:textSize="10sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Company Discount"/>
+                    android:text="@string/txt_member_discount"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -136,7 +142,9 @@
                             android:id="@+id/editCompanyMemberDiscount"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:hint="Disc in %"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:hint="@string/txt_disc_hint"
                             android:background="@drawable/edit_text_background"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -147,12 +155,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="20dp">
+
                 <TextView
-                    android:paddingLeft="5dp"
-                    android:textSize="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Company Taxes"/>
+                    android:paddingLeft="5dp"
+                    android:text="@string/txt_company_taxes"
+                    android:textSize="10sp" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -178,7 +188,9 @@
                             android:id="@+id/editCompanyTax"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:hint="Tax in %"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:hint="@string/txt_taxes_hint"
                             android:background="@drawable/edit_text_background"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -192,7 +204,7 @@
                     android:paddingRight="5dp"
                     android:textAllCaps="false"
                     android:textColor="@color/colorPrimary"
-                    android:text="Update Password"
+                    android:text="@string/btn_change_password"
                     android:onClick="updatePassword"
                     android:background="@android:color/transparent"/>
                 <Button
@@ -202,7 +214,7 @@
                     android:layout_marginTop="20dp"
                     android:textColor="@android:color/white"
                     android:background="@color/colorPrimaryLight"
-                    android:text="Save Change"
+                    android:text="@string/btn_save_change"
                     android:onClick="saveChange"/>
             </LinearLayout>
         </LinearLayout>

@@ -35,7 +35,9 @@
                 android:id="@+id/btnLinkToAddCashOut"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Add Cash Out" />
+                android:background="@color/colorPrimaryLight"
+                android:textColor="@android:color/white"
+                android:text="@string/btn_add_cash_out" />
         </LinearLayout>
 
     </LinearLayout>

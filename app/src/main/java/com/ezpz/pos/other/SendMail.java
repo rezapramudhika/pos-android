@@ -101,7 +101,9 @@ public class SendMail extends AsyncTask<Void,Void,Void> {
                 new javax.mail.Authenticator() {
                     //Authenticating the password
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(StaticFunction.EMAIL, StaticFunction.PASSWORD);
+                        String email = new Memcache(activity).getMailConfig().getEmail();
+                        String password = new Memcache(activity).getMailConfig().getPassword();
+                        return new PasswordAuthentication(email, password);
                     }
                 });
 
@@ -110,7 +112,7 @@ public class SendMail extends AsyncTask<Void,Void,Void> {
             MimeMessage mm = new MimeMessage(session);
 
             //Setting sender address
-            mm.setFrom(new InternetAddress(StaticFunction.EMAIL));
+            mm.setFrom(new InternetAddress(new Memcache(activity).getMailConfig().getEmail()));
             //Adding receiver
             mm.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             //Adding subject

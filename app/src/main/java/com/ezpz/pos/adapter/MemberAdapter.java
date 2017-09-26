@@ -86,8 +86,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
                             final EditText inputCustomerContact = (EditText) mView.findViewById(R.id.inputCustomerContact);
                             final TextView txtTitle = (TextView) mView.findViewById(R.id.titleEditCustomer);
                             Button btnAddCustomer = (Button) mView.findViewById(R.id.btnAddNewCustomer);
-                            btnAddCustomer.setText("Save");
-                            txtTitle.setText("Edit Customer");
+                            btnAddCustomer.setText(R.string.btn_save_change);
+                            txtTitle.setText(R.string.txt_title_edit_member);
                             inputCustomerName.setText(member.getMemberName());
                             inputCustomerEmail.setText(member.getMemberEmail());
                             inputCustomerAddress.setText(member.getMemberAddress());

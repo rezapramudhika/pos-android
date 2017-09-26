@@ -40,9 +40,9 @@
                             android:paddingTop="15dp"
                             android:layout_centerHorizontal="true"
                             android:layout_alignParentTop="true"
-                            android:textSize="14dp"
+                            android:textSize="14sp"
                             android:textColor="@android:color/black"
-                            android:text="Total Sales"/>
+                            android:text="@string/txt_total_sales"/>
                         <TextView
                             android:id="@+id/txtTotalSales"
                             android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_alignParentBottom="true"
                             android:textStyle="bold"
-                            android:textSize="18dp"
+                            android:textSize="18sp"
                             android:textColor="@color/colorPrimary"
                             android:textAlignment="center"
                             android:text="####"/>
@@ -67,9 +67,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="15dp"
-                            android:textSize="14dp"
+                            android:textSize="14sp"
                             android:textColor="@android:color/black"
-                            android:text="Total Member"
+                            android:text="@string/txt_total_member"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true" />
                         <TextView
@@ -80,7 +80,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_alignParentBottom="true"
                             android:textStyle="bold"
-                            android:textSize="18dp"
+                            android:textSize="18sp"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimary"
                             android:text="####"/>
@@ -105,10 +105,10 @@
                             android:paddingTop="15dp"
                             android:layout_centerHorizontal="true"
                             android:layout_alignParentTop="true"
-                            android:textSize="14dp"
+                            android:textSize="14sp"
                             android:textColor="@android:color/black"
                             android:textAlignment="center"
-                            android:text="Total Cash In"/>
+                            android:text="@string/txt_total_cash_in"/>
                         <TextView
                             android:id="@+id/txtTotalCashIn"
                             android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
                             android:layout_alignParentBottom="true"
                             android:textStyle="bold"
                             android:textAlignment="center"
-                            android:textSize="18dp"
+                            android:textSize="18sp"
                             android:textColor="@android:color/holo_green_dark"
                             android:text="####"/>
                     </RelativeLayout>
@@ -132,13 +132,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingTop="15dp"
+                            android:paddingTop="15sp"
                             android:layout_centerHorizontal="true"
                             android:layout_alignParentTop="true"
-                            android:textSize="14dp"
+                            android:textSize="14sp"
                             android:textColor="@android:color/black"
                             android:textAlignment="center"
-                            android:text="Total Cash Out"/>
+                            android:text="@string/txt_total_cash_out"/>
                         <TextView
                             android:id="@+id/txtTotalCashOut"
                             android:layout_width="wrap_content"
@@ -147,7 +147,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_alignParentBottom="true"
                             android:textStyle="bold"
-                            android:textSize="18dp"
+                            android:textSize="18sp"
                             android:textColor="@android:color/holo_red_dark"
                             android:textAlignment="center"
                             android:text="####"/>
@@ -170,7 +170,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Top 5 Favorite Product"/>
+                        android:text="@string/txt_top_product"/>
                     <View
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"

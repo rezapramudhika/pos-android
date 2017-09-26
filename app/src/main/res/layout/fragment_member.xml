@@ -10,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@android:color/white">
+        android:background="@drawable/edit_text_background">
         <EditText
             android:id="@+id/inputSearchMember"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Search Name" />
+            android:hint="@string/hint_search_member" />
         <ImageButton
             android:id="@+id/btnSearchMember"
             android:layout_width="wrap_content"

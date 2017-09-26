@@ -48,10 +48,24 @@
             android:id="@+id/buttonAddCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Category"
+            android:text="@string/btn_add_category"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimaryLight"
             android:onClick="addCategory"/>
 
     </LinearLayout>
+
+    <TextView
+        android:paddingLeft="5dp"
+        android:textSize="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/txt_category_list"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c0c0c0"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayoutCategory"
@@ -61,8 +75,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleViewCategory"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"/>
+            android:layout_height="match_parent"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

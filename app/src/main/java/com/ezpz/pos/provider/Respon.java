@@ -98,6 +98,17 @@ public class Respon {
     @SerializedName("confirmed")
     @Expose
     private int confirmed;
+    @SerializedName("mail_configuration")
+    @Expose
+    private MailConfiguration mailConfiguration;
+
+    public MailConfiguration getMailConfiguration() {
+        return mailConfiguration;
+    }
+
+    public void setMailConfiguration(MailConfiguration mailConfiguration) {
+        this.mailConfiguration = mailConfiguration;
+    }
 
     public int getTotalPurchase() {
         return totalPurchase;

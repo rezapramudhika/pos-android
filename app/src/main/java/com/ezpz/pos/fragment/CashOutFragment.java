@@ -80,8 +80,7 @@ public class CashOutFragment extends Fragment {
                 final EditText inputTotalCashOut = mView.findViewById(R.id.inputTotalAddCash);
                 final EditText inputCashInDescription = mView.findViewById(R.id.inputAddCashDescription);
                 Button btnAddCashOut = mView.findViewById(R.id.btnAddCash);
-                txtTitle.setText("CASH OUT");
-                btnAddCashOut.setText("Save");
+                txtTitle.setText(R.string.txt_title_cash_out);
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.setCanceledOnTouchOutside(true);

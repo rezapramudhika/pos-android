@@ -63,8 +63,8 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:paddingTop="11dp"
-                        android:text="Total sales"
-                        android:textSize="14dp" />
+                        android:text="@string/txt_total_sales"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/txtTotalSales"
@@ -76,7 +76,7 @@
                         android:paddingBottom="11dp"
                         android:text="xxxx"
                         android:textColor="@android:color/black"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -94,8 +94,8 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:paddingTop="11dp"
-                        android:text="Total income"
-                        android:textSize="14dp" />
+                        android:text="@string/txt_total_income"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/txtTotalIncome"
@@ -107,7 +107,7 @@
                         android:paddingBottom="11dp"
                         android:text="xxxx"
                         android:textColor="@android:color/black"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -133,7 +133,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:paddingTop="11dp"
-                        android:text="Most sale product"
+                        android:text="@string/txt_best_seller"
                         android:textSize="14dp" />
 
                     <TextView
@@ -146,7 +146,7 @@
                         android:paddingBottom="11dp"
                         android:text="xxxx"
                         android:textColor="@android:color/black"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
                 </RelativeLayout>
 
                 <Button
@@ -157,11 +157,11 @@
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
                     android:background="@android:color/white"
-                    android:text="Save to cash in"
+                    android:text="@string/btn_save_to_cash_in"
                     android:textAllCaps="false"
                     android:textColor="@color/colorPrimaryLight"
                     android:textColorHighlight="@android:color/holo_blue_light"
-                    android:textSize="12dp">
+                    android:textSize="12sp">
 
                 </Button>
             </LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.ezpz.pos.provider.MailConfiguration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ezpz.pos.provider.BusinessCategory;
@@ -35,6 +36,7 @@ public class Memcache {
     private static final String PRODUCT_DETAIL_KEY = "products_detail_key";
     private static final String STAFF_KEY = "staff_key";
     private static final String COMPANY_KEY = "company_key";
+    private static final String MAIL_KEY = "mail_key";
 
     public Memcache (Context context) {
         this.context = context;
@@ -140,6 +142,19 @@ public class Memcache {
         Type type = new TypeToken<List<Staff>>() {
         }.getType();
         return gson.fromJson(json, type);
+    }
+
+    public void setMailConfig(MailConfiguration mailConfig) {
+        Gson gson = new Gson();
+        String json = gson.toJson(mailConfig);
+        editor.putString(MAIL_KEY, json);
+        editor.commit();
+    }
+
+    public MailConfiguration getMailConfig() {
+        Gson gson = new Gson();
+        String json = pref.getString(MAIL_KEY, "");
+        return gson.fromJson(json, MailConfiguration.class);
     }
 
 

@@ -72,13 +72,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Search Member"
+                    android:text="@string/btn_search_member"
                     android:onClick="searchCustomer"/>
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="New Member"
+                    android:text="@string/btn_new_member"
                     android:onClick="dialogAddCustomer"/>
             </LinearLayout>
 
@@ -112,11 +112,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
-                        android:text="Cashier: "/>
+                        android:text="@string/txt_cashier"/>
                     <TextView
                         android:id="@+id/txtCashierName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
                         android:textColor="@android:color/black"
                         android:text=""/>
                 </LinearLayout>
@@ -129,13 +130,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
-                        android:text="Customer: "/>
+                        android:text="@string/txt_customer"/>
                     <TextView
                         android:id="@+id/txtCustomerName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
                         android:textColor="@android:color/black"
-                        android:text="Guest"/>
+                        android:text="@string/txt_guest"/>
                     <Button
                         android:id="@+id/btnResetCustomer"
                         android:layout_width="30dp"
@@ -168,11 +170,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
-                        android:text="Quantity: "/>
+                        android:text="@string/txt_quantity"/>
                     <TextView
                         android:id="@+id/txtTotalItem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
                         android:textColor="@android:color/black"
                         android:text=""/>
                 </LinearLayout>
@@ -184,11 +187,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
-                        android:text="Total Bill: "/>
+                        android:text="@string/txt_total_bill"/>
                     <TextView
                         android:id="@+id/txtTotalBill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
                         android:textColor="@android:color/black"
                         android:text=""/>
                 </LinearLayout>
@@ -201,11 +205,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
-                        android:text="Disc: "/>
+                        android:text="@string/txt_disc"/>
                     <TextView
                         android:id="@+id/txtTotalDisc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
                         android:textColor="@android:color/black"
                         android:text=""/>
                 </LinearLayout>
@@ -218,11 +223,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
-                        android:text="Tax: "/>
+                        android:text="@string/txt_tax"/>
                     <TextView
                         android:id="@+id/txtTotalTax"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
                         android:textColor="@android:color/black"
                         android:text=""/>
                 </LinearLayout>
@@ -236,11 +242,12 @@
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
                         android:textSize="16dp"
-                        android:text="Net Bill: "/>
+                        android:text="@string/txt_net_bill"/>
                     <TextView
                         android:id="@+id/txtNetBill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
                         android:textSize="16dp"
@@ -252,7 +259,9 @@
                 android:id="@+id/btnCheckout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Checkout"
+                android:background="@color/colorPrimaryLight"
+                android:textColor="@android:color/white"
+                android:text="@string/btn_checkout"
                 android:onClick="checkout"
                 />
 

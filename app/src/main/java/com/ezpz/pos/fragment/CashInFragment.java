@@ -81,8 +81,7 @@ public class CashInFragment extends Fragment {
                 final EditText inputTotalCashIn = mView.findViewById(R.id.inputTotalAddCash);
                 final EditText inputCashInDescription = mView.findViewById(R.id.inputAddCashDescription);
                 Button btnAddCashIn = mView.findViewById(R.id.btnAddCash);
-                txtTitle.setText("CASH IN");
-                btnAddCashIn.setText("Save");
+                txtTitle.setText(R.string.txt_title_cash_in);
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.setCanceledOnTouchOutside(true);

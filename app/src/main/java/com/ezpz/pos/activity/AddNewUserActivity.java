@@ -47,6 +47,7 @@ public class AddNewUserActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCanceledOnTouchOutside(false);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAddNewUser);
         setSupportActionBar(toolbar);

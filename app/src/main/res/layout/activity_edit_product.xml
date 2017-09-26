@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:text="Edit Product Information"
+                android:text="@string/title_edit_product_info"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="24dp"
@@ -74,7 +74,7 @@
                     android:id="@+id/editProductCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Product Code" />
+                    android:hint="@string/product_code" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
-                    android:hint="Product Name" />
+                    android:hint="@string/product_name" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -96,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:hint="Purchase Price" />
+                    android:hint="@string/purchase_price" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -107,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:hint="Selling Price" />
+                    android:hint="@string/selling_price" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -118,14 +118,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapSentences"
-                    android:hint="Description" />
+                    android:hint="@string/description" />
             </android.support.design.widget.TextInputLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Product Category"/>
+                android:text="@string/select_product_category"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -146,7 +146,7 @@
                 android:background="@color/colorPrimaryLight"
                 android:textColor="@android:color/white"
                 android:layout_marginTop="20dp"
-                android:text="Save Change"
+                android:text="@string/btn_save_change"
                 android:onClick="addNewProduct"/>
 
         </LinearLayout>
@@ -167,7 +167,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:text="Edit Product Stock"
+            android:text="@string/title_edit_product_stock"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:textSize="24dp"
@@ -177,7 +177,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Now In Stock"/>
+            android:text="@string/txt_now_in_stock"/>
 
         <EditText
             android:id="@+id/editInStock"
@@ -188,14 +188,14 @@
             android:id="@+id/btnRefreshStock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="refresh"
+            android:text="@string/btn_refresh"
             android:onClick="refreshStock"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Add Stock"/>
+            android:text="@string/txt_add_stock"/>
 
         <EditText
             android:id="@+id/editAddStock"
@@ -211,7 +211,7 @@
             android:background="@color/colorPrimaryLight"
             android:textColor="@android:color/white"
             android:layout_marginTop="20dp"
-            android:text="Update"/>
+            android:text="@string/btn_update_stock"/>
 
         </LinearLayout>
 
@@ -227,7 +227,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:text="Edit Product Discount"
+            android:text="@string/title_edit_product_discount"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:textSize="24dp"
@@ -237,7 +237,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Product Discount (in %)"/>
+            android:text="@string/txt_product_discount"/>
 
         <EditText
             android:id="@+id/editDiscount"
@@ -252,7 +252,7 @@
             android:background="@color/colorPrimaryLight"
             android:textColor="@android:color/white"
             android:layout_marginTop="20dp"
-            android:text="Update"/>
+            android:text="@string/btn_update_discount"/>
 
     </LinearLayout>
 
@@ -268,7 +268,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:text="Delete Product"
+            android:text="@string/title_delete_product"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:textSize="24dp"
@@ -278,7 +278,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Are you sure to delete this product?"/>
+            android:text="@string/txt_confirm_delete_product"/>
 
         <Button
             android:id="@+id/btnDeleteProduct"
@@ -287,7 +287,7 @@
             android:layout_marginTop="5dp"
             android:background="@color/colorAccent"
             android:textColor="@android:color/white"
-            android:text="Yes i'm sure"/>
+            android:text="@string/btn_delete_product"/>
 
     </LinearLayout>
 

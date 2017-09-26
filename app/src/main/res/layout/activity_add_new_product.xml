@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:text="Add New Product"
+                android:text="@string/title_add_new_product"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="24dp"
@@ -57,7 +57,7 @@
                     android:id="@+id/inputProductCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Product Code" />
+                    android:hint="@string/product_code" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
-                    android:hint="Product Name" />
+                    android:hint="@string/product_name" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:hint="Purchase Price" />
+                    android:hint="@string/purchase_price" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -90,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:hint="Selling Price" />
+                    android:hint="@string/selling_price" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -101,14 +101,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapSentences"
-                    android:hint="Description" />
+                    android:hint="@string/description" />
             </android.support.design.widget.TextInputLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Product Category"/>
+                android:text="@string/select_product_category"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -127,7 +127,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Add Product"
+                android:background="@color/colorPrimaryLight"
+                android:textColor="@android:color/white"
+                android:text="@string/btn_add_new_product"
                 android:onClick="addNewProduct"/>
 
         </LinearLayout>

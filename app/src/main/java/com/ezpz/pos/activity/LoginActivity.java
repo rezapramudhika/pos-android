@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCanceledOnTouchOutside(false);
 
         emailInput = (EditText) findViewById(R.id.inputLoginEmail);
         passwordInput = (EditText) findViewById(R.id.inputLoginPassword);

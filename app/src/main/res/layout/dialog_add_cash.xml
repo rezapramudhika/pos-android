@@ -1,51 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="20dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingBottom="20dp">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/txtTitleAddCash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:text="CASH IN"
+        android:text="@string/txt_title_cash_in"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="36dp"
+        android:textSize="24sp"
         android:textStyle="bold" />
+    <View
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c0c0c0"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_cash"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/inputTotalAddCash"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_cash"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:hint="Total" />
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/inputAddCashDescription"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/inputTotalAddCash"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="@string/hint_total" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_description"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="Description" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/inputAddCashDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/hint_description" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/btnAddCash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimaryLight"
+        android:text="@string/btn_save"
         />
 
 </LinearLayout>

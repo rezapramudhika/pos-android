@@ -36,7 +36,7 @@
                         android:id="@+id/inputRegisterName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Name"
+                        android:hint="@string/user_name"
                         android:inputType="text" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -49,7 +49,7 @@
                         android:id="@+id/inputRegisterEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Email"
+                        android:hint="@string/user_email"
                         android:inputType="textEmailAddress" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -62,7 +62,7 @@
                         android:id="@+id/inputRegisterPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Password"
+                        android:hint="@string/user_create_password"
                         android:inputType="textPassword" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -75,7 +75,7 @@
                         android:id="@+id/inputRegisterPasswordConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Confirm Password"
+                        android:hint="@string/user_confirm_password"
                         android:inputType="textPassword" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -94,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:text="By signing up, you agree with our"
                         android:textColor="@android:color/darker_gray"
-                        android:textSize="12dp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/terms"
@@ -104,7 +104,7 @@
                         android:text=" Terms and Condition"
                         android:textAllCaps="true"
                         android:textColor="@android:color/darker_gray"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -115,7 +115,7 @@
                     android:layout_marginTop="15dip"
                     android:background="@color/colorPrimary"
                     android:onClick="register"
-                    android:text="Sign up"
+                    android:text="@string/btn_register"
                     android:textColor="@android:color/white" />
 
                 <!-- Link to Login Screen -->
@@ -124,13 +124,13 @@
                     android:id="@+id/btnLinkToLoginScreen"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dip"
+                    android:layout_marginTop="30dp"
                     android:background="@null"
                     android:onClick="linkToLogin"
-                    android:text="Already registred! Login Me."
+                    android:text="@string/btn_link_to_login"
                     android:textAllCaps="false"
                     android:textColor="@color/colorAccent"
-                    android:textSize="15dp" />
+                    android:textSize="14sp" />
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

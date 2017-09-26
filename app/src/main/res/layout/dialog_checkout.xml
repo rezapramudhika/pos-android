@@ -12,15 +12,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="15dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="15dp">
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CHECKOUT"
+                android:text="@string/btn_checkout"
+                android:textAllCaps="true"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="36dp"
@@ -89,15 +88,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="GRAND TOTAL"
+                    android:text="@string/txt_grand_total"
+                    android:textAllCaps="true"
                     android:textColor="@android:color/black"
-                    android:textSize="22dp" />
+                    android:textSize="22sp" />
 
                 <TextView
                     android:id="@+id/inputGrandTotal"
@@ -117,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:paddingLeft="5dp"
-                android:text="Payment"
+                android:text="@string/txt_payment"
                 android:textSize="10dp" />
 
             <View
@@ -128,13 +130,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CASH :  "
+                    android:text="@string/txt_cash"
+                    android:textAllCaps="true"
                     android:textColor="@android:color/black"
                     android:textSize="22dp" />
 
@@ -142,6 +147,7 @@
                     android:id="@+id/inputCash"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
                     android:inputType="number"
                     android:textColor="@android:color/black"
                     android:textSize="22dp"
@@ -153,7 +159,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
 
                 <Button
                     android:id="@+id/btnCancel"
@@ -161,7 +169,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
-                    android:text="Cancel"
+                    android:text="@string/btn_cancel"
                     android:textColor="@android:color/white"
                     android:background="@android:color/holo_red_light"/>
 
@@ -171,7 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_weight="1"
-                    android:text="Checkout"
+                    android:text="@string/btn_checkout"
                     android:textColor="@android:color/white"
                     android:background="@android:color/holo_blue_light"/>
             </LinearLayout>
@@ -181,13 +189,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="CHANGE:  "
+                    android:text="@string/txt_change"
+                    android:textAllCaps="true"
                     android:textColor="@android:color/black"
                     android:textSize="22dp" />
 
@@ -213,13 +224,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_weight="1"
-                        android:text="Done" />
+                        android:text="@string/btn_done" />
                     <Button
                         android:id="@+id/btnPrint"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_weight="1"
-                        android:text="Print" />
+                        android:text="@string/btn_print" />
                 </LinearLayout>
 
             </LinearLayout>

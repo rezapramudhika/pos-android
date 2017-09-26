@@ -77,6 +77,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                             AlertDialog alert = builder.create();
                             alert.show();
                         }else{
+                            new Memcache(getApplicationContext()).setMailConfig(respon.getMailConfiguration());
                             final User user = new Memcache(getApplicationContext()).getUser();
                             if(user != null){
                                 if(user.getLevel()==1){
