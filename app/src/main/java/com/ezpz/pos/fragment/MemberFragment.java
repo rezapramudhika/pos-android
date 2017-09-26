@@ -20,10 +20,7 @@ import com.ezpz.pos.R;
 import com.ezpz.pos.activity.MainPanelActivity;
 import com.ezpz.pos.adapter.MemberAdapter;
 import com.ezpz.pos.api.GetMemberList;
-<<<<<<< HEAD
 import com.ezpz.pos.other.StaticFunction;
-=======
->>>>>>> origin/master
 import com.ezpz.pos.provider.Member;
 import com.ezpz.pos.provider.Respon;
 

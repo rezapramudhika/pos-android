@@ -23,10 +23,7 @@ import com.ezpz.pos.activity.MainPanelActivity;
 import com.ezpz.pos.adapter.CashInAdapter;
 import com.ezpz.pos.api.GetCashInList;
 import com.ezpz.pos.api.PostCreateCashIn;
-<<<<<<< HEAD
 import com.ezpz.pos.other.StaticFunction;
-=======
->>>>>>> origin/master
 import com.ezpz.pos.provider.CashIn;
 import com.ezpz.pos.provider.Respon;
 

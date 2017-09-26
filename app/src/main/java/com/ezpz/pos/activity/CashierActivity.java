@@ -41,14 +41,7 @@ import com.ezpz.pos.api.PostCreateSales;
 import com.ezpz.pos.api.PostCreateSalesDetail;
 import com.ezpz.pos.api.PostUpdatePassword;
 import com.ezpz.pos.other.Memcache;
-<<<<<<< HEAD
 import com.ezpz.pos.other.StaticFunction;
-=======
-<<<<<<< HEAD
-import com.ezpz.pos.other.StaticFunction;
-=======
->>>>>>> origin/master
->>>>>>> origin/master
 import com.ezpz.pos.printer.BillModel;
 import com.ezpz.pos.printer.DeviceListActivity;
 import com.ezpz.pos.printer.StaticValue;

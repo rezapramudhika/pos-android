@@ -2,6 +2,15 @@
 <items version="2" >
 
     <item
+        is-multidex="false"
+        jar="C:\Users\rezap\AndroidStudioProjects\POS\app\libs\additionnal.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="bd9e8dc422bb8c8405359947fe9f4282b49f57f4">
+        <dex dex="C:\Users\rezap\AndroidStudioProjects\POS\app\build\intermediates\pre-dexed\release\additionnal_6c85c042380c2b140c1e043244ad57906bcea96d.jar" />
+    </item>
+    <item
         is-multidex="true"
         jar="C:\Users\rezap\AndroidStudioProjects\POS\app\libs\activation.jar"
         jumboMode="true"
@@ -11,13 +20,22 @@
         <dex dex="C:\Users\rezap\AndroidStudioProjects\POS\app\build\intermediates\transforms\dex\debug\folders\1000\2\activation_7d34c2adf5506a2be54ea50ebbd6af8de6205071\classes.dex" />
     </item>
     <item
-        is-multidex="true"
+        is-multidex="false"
+        jar="C:\Users\rezap\AndroidStudioProjects\POS\app\libs\activation.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="d1257cbff6faa44c1f325ae0d9413522d4644383">
+        <dex dex="C:\Users\rezap\AndroidStudioProjects\POS\app\build\intermediates\pre-dexed\release\activation_7d34c2adf5506a2be54ea50ebbd6af8de6205071.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\rezap\AndroidStudioProjects\POS\app\libs\RTDriver.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="26.0.1"
         sha1="9fcbc5b575adb085fcf5ce8c1d7b821799226857">
-        <dex dex="C:\Users\rezap\AndroidStudioProjects\POS\app\build\intermediates\transforms\dex\debug\folders\1000\2\RTDriver_c312cfc2069fbd20f79a7ce373c1c3a76e72a7d9\classes.dex" />
+        <dex dex="C:\Users\rezap\AndroidStudioProjects\POS\app\build\intermediates\pre-dexed\release\RTDriver_c312cfc2069fbd20f79a7ce373c1c3a76e72a7d9.jar" />
     </item>
     <item
         is-multidex="true"
@@ -45,6 +63,24 @@
         revision="26.0.1"
         sha1="75aa7fc94b2ab280bc89b2eda5fbda390a56f914">
         <dex dex="C:\Users\rezap\AndroidStudioProjects\POS\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_618a72765e1113514906c4733496aab96f5cbcab\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\rezap\AndroidStudioProjects\POS\app\libs\mail.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="428e267abff0d10802ccde86b915da2c20471160">
+        <dex dex="C:\Users\rezap\AndroidStudioProjects\POS\app\build\intermediates\pre-dexed\release\mail_a74ac8a643fadcd33e70f721f0099a4cae8b3a17.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\rezap\AndroidStudioProjects\POS\app\libs\RTDriver.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="9fcbc5b575adb085fcf5ce8c1d7b821799226857">
+        <dex dex="C:\Users\rezap\AndroidStudioProjects\POS\app\build\intermediates\transforms\dex\debug\folders\1000\2\RTDriver_c312cfc2069fbd20f79a7ce373c1c3a76e72a7d9\classes.dex" />
     </item>
     <item
         is-multidex="true"
