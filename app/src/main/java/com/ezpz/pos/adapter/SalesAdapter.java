@@ -10,7 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ezpz.pos.R;
-import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Sales;
 
 import java.text.SimpleDateFormat;

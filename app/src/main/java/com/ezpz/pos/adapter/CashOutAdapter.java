@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.ezpz.pos.R;
 import com.ezpz.pos.api.PostDeleteCashOut;
 import com.ezpz.pos.fragment.CashOutFragment;
-import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.CashOut;
 import com.ezpz.pos.provider.Respon;
 

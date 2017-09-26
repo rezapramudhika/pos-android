@@ -17,7 +17,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ezpz.pos.R;
 import com.ezpz.pos.activity.EditProductActivity;
 import com.ezpz.pos.fragment.ProductFragment;
-import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Product;
 
 import java.util.List;

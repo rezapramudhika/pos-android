@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.ezpz.pos.R;
 import com.ezpz.pos.api.PostRegister;
 import com.ezpz.pos.other.SendMail;
-import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Respon;
 
 import retrofit2.Call;

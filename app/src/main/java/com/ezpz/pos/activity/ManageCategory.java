@@ -17,7 +17,6 @@ import com.ezpz.pos.adapter.CategoryAdapter;
 import com.ezpz.pos.api.GetCategory;
 import com.ezpz.pos.api.PostCreateCategory;
 import com.ezpz.pos.other.Memcache;
-import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Category;
 import com.ezpz.pos.provider.Respon;
 

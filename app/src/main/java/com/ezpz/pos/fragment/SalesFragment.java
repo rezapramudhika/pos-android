@@ -26,7 +26,6 @@ import com.ezpz.pos.activity.MainPanelActivity;
 import com.ezpz.pos.adapter.SalesAdapter;
 import com.ezpz.pos.api.GetSalesList;
 import com.ezpz.pos.api.PostCreateCashIn;
-import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Respon;
 import com.ezpz.pos.provider.Sales;
 
