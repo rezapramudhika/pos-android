@@ -19,7 +19,14 @@ import com.ezpz.pos.R;
 import com.ezpz.pos.adapter.BusinessAdapter;
 import com.ezpz.pos.api.GetBusinessList;
 import com.ezpz.pos.other.Memcache;
+<<<<<<< HEAD
 import com.ezpz.pos.other.StaticFunction;
+=======
+<<<<<<< HEAD
+import com.ezpz.pos.other.StaticFunction;
+=======
+>>>>>>> origin/master
+>>>>>>> origin/master
 import com.ezpz.pos.provider.Company;
 import com.ezpz.pos.provider.Respon;
 
@@ -50,7 +57,10 @@ public class BusinessListActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+<<<<<<< HEAD
         mProgressDialog.setCanceledOnTouchOutside(false);
+=======
+>>>>>>> origin/master
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarBusinessList);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Business List");
