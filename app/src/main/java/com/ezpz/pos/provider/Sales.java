@@ -42,12 +42,19 @@ public class Sales {
     @SerializedName("grand_total")
     @Expose
     private int grandTotal;
+    @SerializedName("cash")
+    @Expose
+    private int cash;
+    @SerializedName("changes")
+    @Expose
+    private int change;
     @SerializedName("company_code")
     @Expose
     private String companyCode;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
+
 
     private int maxBillNumber;
 
@@ -122,6 +129,22 @@ public class Sales {
 
     public void setGrandTotal(int grandTotal) {
         this.grandTotal = grandTotal;
+    }
+
+    public int getCash() {
+        return cash;
+    }
+
+    public void setCash(int cash) {
+        this.cash = cash;
+    }
+
+    public int getChange() {
+        return change;
+    }
+
+    public void setChange(int change) {
+        this.change = change;
     }
 
     public String getCompanyCode() {

@@ -708,6 +708,8 @@ public class CashierActivity extends AppCompatActivity {
                     "",
                     txtTotalTax.getText().toString(),
                     Integer.valueOf(txtNetBill.getText().toString()),
+                    getCash(),
+                    getChange(),
                     companyCode()
             );
             setTotalBill(Integer.valueOf(txtTotalPrice.getText().toString()));
@@ -724,6 +726,8 @@ public class CashierActivity extends AppCompatActivity {
                         "",
                         "",
                         Integer.valueOf(txtNetBill.getText().toString()),
+                        getCash(),
+                        getChange(),
                         companyCode()
                 );
                 setTotalBill(Integer.valueOf(txtTotalPrice.getText().toString()));
@@ -739,6 +743,8 @@ public class CashierActivity extends AppCompatActivity {
                         txtTotalDisc.getText().toString(),
                         "",
                         Integer.valueOf(txtNetBill.getText().toString()),
+                        getCash(),
+                        getChange(),
                         companyCode()
                 );
                 setTotalBill(Integer.valueOf(txtTotalPrice.getText().toString()));
@@ -755,6 +761,8 @@ public class CashierActivity extends AppCompatActivity {
                     "",
                     "",
                     Integer.valueOf(txtNetBill.getText().toString()),
+                    getCash(),
+                    getChange(),
                     companyCode()
             );
             setTotalBill(Integer.valueOf(txtTotalPrice.getText().toString()));
@@ -771,6 +779,8 @@ public class CashierActivity extends AppCompatActivity {
                         "",
                         txtTotalTax.getText().toString(),
                         Integer.valueOf(txtNetBill.getText().toString()),
+                        getCash(),
+                        getChange(),
                         companyCode()
                 );
                 setTotalBill(Integer.valueOf(txtTotalPrice.getText().toString()));
@@ -786,6 +796,8 @@ public class CashierActivity extends AppCompatActivity {
                         txtTotalDisc.getText().toString(),
                         txtTotalTax.getText().toString(),
                         Integer.valueOf(txtNetBill.getText().toString()),
+                        getCash(),
+                        getChange(),
                         companyCode()
                 );
                 setTotalBill(Integer.valueOf(txtTotalPrice.getText().toString()));
@@ -881,11 +893,11 @@ public class CashierActivity extends AppCompatActivity {
                     btnCancel.setEnabled(false);
                     btnPay.setEnabled(false);
                     layoutChange.setVisibility(View.VISIBLE);
+                    setBillModelArrayList();
+                    setChange(Integer.valueOf(inputChange.getText().toString()));
+                    setCash(Integer.valueOf(inputCash.getText().toString()));
                     done();
                 }
-                setBillModelArrayList();
-                setChange(Integer.valueOf(inputChange.getText().toString()));
-                setCash(Integer.valueOf(inputCash.getText().toString()));
             }
         });
 
@@ -1022,9 +1034,9 @@ public class CashierActivity extends AppCompatActivity {
         });
     }
 
-    public void httpRequest_postAddSales(int idUser, String memberCode, int quantity, int total, String disc, String tax, int grandTotal, String companyCode){
+    public void httpRequest_postAddSales(int idUser, String memberCode, int quantity, int total, String disc, String tax, int grandTotal, int cash, int change, String companyCode){
         PostCreateSales client =  StaticFunction.retrofit().create(PostCreateSales.class);
-        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), idUser, memberCode, quantity, total, disc, tax, grandTotal, companyCode);
+        Call<Respon> call = client.setVar(StaticFunction.apiToken(getApplicationContext()), idUser, memberCode, quantity, total, disc, tax, grandTotal, cash, change, companyCode);
 
         call.enqueue(new Callback<Respon>() {
             @Override

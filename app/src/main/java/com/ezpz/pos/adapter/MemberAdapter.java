@@ -2,6 +2,7 @@ package com.ezpz.pos.adapter;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -41,12 +42,18 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
     Context context;
     Activity thisActivity;
     MemberFragment fragment;
+    private ProgressDialog mProgressDialog;
 
     public MemberAdapter(Activity thisActivity, List<Member> memberList, Context context, MemberFragment fragment) {
         this.memberList = memberList;
         this.context = context;
         this.thisActivity = thisActivity;
         this.fragment = fragment;
+
+        mProgressDialog = new ProgressDialog(thisActivity);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCanceledOnTouchOutside(false);
     }
 
     @Override
@@ -204,12 +211,13 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
     }
 
     public void httpRequest_getSelectedMember(int id, final String memberCode, final String memberName) {
+        mProgressDialog.show();
         GetMemberDetail client = StaticFunction.retrofit().create(GetMemberDetail.class);
         Call<Respon> call = client.setVar(StaticFunction.apiToken(thisActivity.getApplicationContext()),id, memberCode);
-
         call.enqueue(new Callback<Respon>() {
             @Override
             public void onResponse(Call<Respon> call, Response<Respon> response) {
+                mProgressDialog.dismiss();
                 if (response.isSuccessful()) {
                     Respon respon = response.body();
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -219,7 +227,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
                         builder.setMessage("Member hasn't made any transactions yet.");
                     }else{
                         String totalPurchase = StaticFunction.moneyFormat(Double.valueOf(respon.getTotalPurchase()));
-                        String favProduct = respon.getProductFav().getProductId();
+                        String favProduct = respon.getProductFav().getProductName();
                         builder.setMessage("Total Purchase: "+totalPurchase+"\n"+"Favorite Product: "+favProduct);
                     }
                     builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
@@ -234,7 +242,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
             @Override
             public void onFailure(Call<Respon> call, Throwable t) {
-
+                mProgressDialog.dismiss();
+                Toast.makeText(thisActivity.getApplicationContext(),
+                        thisActivity.getResources().getString(R.string.error_async_text),
+                        Toast.LENGTH_LONG).show();
             }
         });
     }

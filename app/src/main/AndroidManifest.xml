@@ -62,7 +62,8 @@
             android:name=".activity.SettingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.LoadMemcachedCashier" />
-        <activity android:name=".activity.RequestForUpdateActivity"></activity>
+        <activity android:name=".activity.RequestForUpdateActivity" />
+        <activity android:name=".activity.BillActivity"></activity>
     </application>
 
 </manifest>

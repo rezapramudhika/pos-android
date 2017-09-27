@@ -24,6 +24,8 @@ public interface PostCreateSales {
             @Field("disc") String disc,
             @Field("tax") String tax,
             @Field("grand_total") int grandTotal,
+            @Field("cash") int cash,
+            @Field("changes") int change,
             @Field("company_code") String companyCode
     );
 }

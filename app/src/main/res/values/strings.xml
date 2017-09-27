@@ -11,8 +11,8 @@
     <string name="openDrawer">open_drawer</string>
     <string name="closeDrawer">close_drawer</string>
 
-    <item name="visible" type="id"/>
-    <item name="masked" type="id"/>
+    <item name="visible" type="id" />
+    <item name="masked" type="id" />
 
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Home</string>
@@ -183,4 +183,17 @@
     <string name="txt_total_income">Total Income</string>
     <string name="txt_best_seller">Best Seller</string>
     <string name="btn_save_to_cash_in">Save to cash in</string>
+
+    <!-- layout bill -->
+    <string name="txt_bill_no">Bill No</string>
+    <string name="txt_trn_date">Trn. Date</string>
+    <string name="txt_bill_cashier">Cashier</string>
+    <string name="txt_bill_customer">Customer</string>
+    <string name="txt_bill_total_bill">Total Bill</string>
+    <string name="txt_bill_tax">Tax</string>
+    <string name="txt_bill_disc">Member Disc</string>
+    <string name="txt_bill_net_bill">Net Bill</string>
+    <string name="txt_bill_cash">Cash</string>
+    <string name="txt_bill_change">Change</string>
+
 </resources>

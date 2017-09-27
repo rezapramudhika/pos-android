@@ -2,6 +2,8 @@ package com.ezpz.pos.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ezpz.pos.R;
+import com.ezpz.pos.activity.BillActivity;
 import com.ezpz.pos.other.StaticFunction;
 import com.ezpz.pos.provider.Sales;
 
@@ -53,6 +56,14 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.ViewHolder> 
         }
         holder.txtQuantity.setText(String.valueOf(sales.getQuantity()));
         holder.txtTotalCash.setText(StaticFunction.moneyFormat(Double.valueOf(sales.getGrandTotal())));
+        holder.layoutSalesItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("salesId", String.valueOf(sales.getId()));
+                thisActivity.startActivity(new Intent(thisActivity, BillActivity.class).putExtras(bundle));
+            }
+        });
 
     }
 

@@ -105,6 +105,10 @@ public class BusinessListActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(getApplicationContext(),""+respon.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            getResources().getString(R.string.error_async_text),
+                            Toast.LENGTH_LONG).show();
                 }
 
             }

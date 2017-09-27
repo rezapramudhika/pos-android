@@ -24,7 +24,7 @@ public class BillAdapter extends ArrayAdapter{
     private List<Product> listProduct;
     private int resource;
     private LayoutInflater inflater;
-    Activity thisActivity;
+    private Activity thisActivity;
     private boolean is_available;
 
     public BillAdapter(Activity thisActivity, int resource, List<Product> listProduct) {
@@ -147,14 +147,8 @@ public class BillAdapter extends ArrayAdapter{
             }
         });
 
-
-
-
         return convertView;
     }
-
-
-
 
     class ViewHolder{
         private TextView txtProductName;

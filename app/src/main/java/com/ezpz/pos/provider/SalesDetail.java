@@ -18,12 +18,15 @@ public class SalesDetail {
     @SerializedName("sales_id")
     @Expose
     private int salesId;
+    @SerializedName("bill_number")
+    @Expose
+    private int billNumber;
     @SerializedName("member_code")
     @Expose
-    private int memberCode;
-    @SerializedName("product_code")
+    private String memberCode;
+    @SerializedName("product_id")
     @Expose
-    private int productCode;
+    private int productId;
     @SerializedName("selling_price")
     @Expose
     private int sellingPrice;
@@ -36,6 +39,9 @@ public class SalesDetail {
     @SerializedName("company_code")
     @Expose
     private String companyCode;
+    @SerializedName("product_name")
+    @Expose
+    private String productName;
 
     public int getId() {
         return id;
@@ -53,20 +59,28 @@ public class SalesDetail {
         this.salesId = salesId;
     }
 
-    public int getMemberCode() {
+    public int getBillNumber() {
+        return billNumber;
+    }
+
+    public void setBillNumber(int billNumber) {
+        this.billNumber = billNumber;
+    }
+
+    public String getMemberCode() {
         return memberCode;
     }
 
-    public void setMemberCode(int memberCode) {
+    public void setMemberCode(String memberCode) {
         this.memberCode = memberCode;
     }
 
-    public int getProductCode() {
-        return productCode;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProductCode(int productCode) {
-        this.productCode = productCode;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public int getSellingPrice() {
@@ -99,6 +113,14 @@ public class SalesDetail {
 
     public void setCompanyCode(String companyCode) {
         this.companyCode = companyCode;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     @Override

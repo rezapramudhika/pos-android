@@ -53,6 +53,9 @@ public class Respon {
     @SerializedName("sales_list")
     @Expose
     private List<Sales> salesList = null;
+    @SerializedName("sales_detail")
+    @Expose
+    private List<SalesDetail> salesDetailList = null;
     @SerializedName("total_sales")
     @Expose
     private int totalSales;
@@ -107,6 +110,9 @@ public class Respon {
     @SerializedName("mail_configuration")
     @Expose
     private MailConfiguration mailConfiguration;
+    @SerializedName("sales")
+    @Expose
+    private Sales selectedSales;
 
     public MailConfiguration getMailConfiguration() {
         return mailConfiguration;
@@ -361,5 +367,20 @@ public class Respon {
 
     public void setProductFavListName(List<ProductFav> productFavListName) {
         this.productFavListName = productFavListName;
+    }
+    public Sales getSelectedSales() {
+        return selectedSales;
+    }
+
+    public void setSelectedSales(Sales selectedSales) {
+        this.selectedSales = selectedSales;
+    }
+
+    public List<SalesDetail> getSalesDetailList() {
+        return salesDetailList;
+    }
+
+    public void setSalesDetailList(List<SalesDetail> salesDetailList) {
+        this.salesDetailList = salesDetailList;
     }
 }
