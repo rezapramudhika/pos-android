@@ -126,6 +126,7 @@ public class CashOutFragment extends Fragment {
             }
         });
         httpRequest_getCashOut(companyCode());
+
     }
 
     public String companyCode() {

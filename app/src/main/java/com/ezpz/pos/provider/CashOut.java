@@ -21,9 +21,20 @@ public class CashOut {
     @SerializedName("description")
     @Expose
     private String description;
+    @SerializedName("date")
+    @Expose
+    private String date;
     @SerializedName("created_at")
     @Expose
     private String created_at;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public int getId() {
         return id;

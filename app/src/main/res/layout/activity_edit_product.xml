@@ -24,7 +24,6 @@
         android:layout_height="38dp"
         android:background="@drawable/edit_text_background"
         android:orientation="horizontal">
-
         <Spinner
             android:id="@+id/spinnerSelectLayout"
             android:layout_width="match_parent"

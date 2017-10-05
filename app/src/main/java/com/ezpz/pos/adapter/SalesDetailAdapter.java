@@ -62,8 +62,6 @@ public class SalesDetailAdapter extends ArrayAdapter {
 
         final SalesDetail salesDetail = salesList.get(position);
 
-
-
         holder.txtProductName.setText(salesDetail.getProductName());
         if(salesDetail.getDisc()==0){
             holder.txtProductDisc.setVisibility(View.GONE);

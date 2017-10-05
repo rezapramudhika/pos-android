@@ -113,6 +113,50 @@ public class Respon {
     @SerializedName("sales")
     @Expose
     private Sales selectedSales;
+    @SerializedName("expense_item")
+    @Expose
+    private List<ExpenseDetail> expenseDetails = null;
+    @SerializedName("max_id")
+    @Expose
+    private int maxId;
+    @SerializedName("max_date")
+    @Expose
+    private String maxDate;
+    @SerializedName("total_expense")
+    @Expose
+    private int totalExpense;
+
+    public String getMaxDate() {
+        return maxDate;
+    }
+
+    public void setMaxDate(String maxDate) {
+        this.maxDate = maxDate;
+    }
+
+    public int getTotalExpense() {
+        return totalExpense;
+    }
+
+    public void setTotalExpense(int totalExpense) {
+        this.totalExpense = totalExpense;
+    }
+
+    public int getMaxId() {
+        return maxId;
+    }
+
+    public void setMaxId(int maxId) {
+        this.maxId = maxId;
+    }
+
+    public List<ExpenseDetail> getExpenseDetails() {
+        return expenseDetails;
+    }
+
+    public void setExpenseDetails(List<ExpenseDetail> expenseDetails) {
+        this.expenseDetails = expenseDetails;
+    }
 
     public MailConfiguration getMailConfiguration() {
         return mailConfiguration;

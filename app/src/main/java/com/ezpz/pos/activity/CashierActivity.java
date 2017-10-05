@@ -1226,7 +1226,9 @@ public class CashierActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.connectPrinter){
+        if(id==R.id.linkToExpense){
+            startActivity(new Intent(CashierActivity.this, ExpenseActivity.class));
+        }else if (id == R.id.connectPrinter){
 //            Bundle bundle = new Bundle();
 //            bundle.putString("companyCode",companyCode);
             //Intent serverIntent = null;

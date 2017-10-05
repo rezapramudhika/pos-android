@@ -15,19 +15,21 @@
     <item name="masked" type="id" />
 
     <!-- Navigation Drawer menu labels -->
-    <string name="nav_home">Home</string>
-    <string name="nav_photos">Photos</string>
-    <string name="nav_movies">Movies</string>
-    <string name="nav_notifications">Notifications</string>
-    <string name="nav_settings">Settings</string>
-    <string name="nav_about_us">About Us</string>
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_product">Product</string>
+    <string name="nav_sales">Sales</string>
+    <string name="nav_report">Report</string>
+    <string name="nav_member">Member</string>
+    <string name="nav_user">User</string>
+    <string name="nav_setting">Settings</string>
+    <string name="nav_logout">Logout</string>
 
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="nav_item_activity_titles">
         <item>Dashboard</item>
         <item>Product</item>
         <item>Sales</item>
-        <item>Cash In and Out</item>
+        <item>Report</item>
         <item>Member</item>
         <item>User</item>
     </string-array>
@@ -37,6 +39,15 @@
         <item>Product Stock</item>
         <item>Product Discount</item>
         <item>Delete Product</item>
+    </string-array>
+
+    <string-array name="unit">
+        <item>-</item>
+        <item>Kg</item>
+        <item>Gr</item>
+        <item>L</item>
+        <item>ml</item>
+        <item>pc(s)</item>
     </string-array>
 
     <string name="activity_title_about_us">About Us</string>
@@ -158,13 +169,24 @@
     <string name="btn_change_password">Change Password</string>
 
     <!-- layout add cash -->
-    <string name="txt_title_cash_in">CASH IN</string>
-    <string name="txt_title_cash_out">CASH OUT</string>
+    <string name="txt_title_cash_in">INCOME</string>
+    <string name="txt_title_cash_out">EXPENSES</string>
     <string name="hint_total">Total</string>
     <string name="hint_description">Description</string>
     <string name="btn_save">Save</string>
+    <string name="btn_add_item">Add Item</string>
     <string name="btn_add_cash_in">Add Cash In</string>
     <string name="btn_add_cash_out">Add Cash Out</string>
+
+    <!-- layout expense -->
+    <string name="txt_title_expense">EXPENSE</string>
+    <string name="txt_title_expense_detail">EXPENSE DETAIL</string>
+    <string name="hint_item">Item Name</string>
+    <string name="hint_qty">Quantity</string>
+    <string name="hint_total_price">Total Price</string>
+    <string name="btn_add">Add</string>
+    <string name="btn_close">Close</string>
+
 
     <!-- layout member -->
     <string name="txt_title_new_member">Member Registration</string>
@@ -177,8 +199,8 @@
     <!-- layout dashboard -->
     <string name="txt_total_sales">Total Sales</string>
     <string name="txt_total_member">Total Member</string>
-    <string name="txt_total_cash_in">Total Cash In</string>
-    <string name="txt_total_cash_out">Total Cash Out</string>
+    <string name="txt_total_cash_in">Total Income</string>
+    <string name="txt_total_cash_out">Total Expenses</string>
     <string name="txt_top_product">Top 5 Favorite Products</string>
     <string name="txt_total_income">Total Income</string>
     <string name="txt_best_seller">Best Seller</string>

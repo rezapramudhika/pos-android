@@ -53,8 +53,8 @@ public class ExpenseFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFrag(cashInFragment, "Cash In");
-        adapter.addFrag(cashOutFragment, "Cash Out");
+        adapter.addFrag(cashInFragment, getActivity().getResources().getString(R.string.txt_title_cash_in));
+        adapter.addFrag(cashOutFragment, getActivity().getResources().getString(R.string.txt_title_cash_out));
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
